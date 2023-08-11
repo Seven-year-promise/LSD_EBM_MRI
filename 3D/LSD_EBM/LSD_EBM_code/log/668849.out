@@ -1,0 +1,59 @@
+num_epochs 201
+batch_size 2
+ebm_lr 0.0001
+gen_lr 0.0001
+load_from_ep None
+epoch_start 0
+recon_loss bce
+ebm_dyn_lr None
+gen_dyn_lr None
+EBM_reg 0
+save_model True
+train_set XXX_bodies_data_train
+validation_set XXX_bodies_data_validation
+test_set XXX_bodies_data_test
+experiment Test
+save_visu True
+ep_betw_val 1
+num_channels 16
+num_latents 100
+prior_var 1.0
+prior_bn True
+gen_var 0.3
+ebm_num_layers 3
+ebm_inner_dim 300
+use_samp_buff False
+samp_buff_size 256
+pr_mcmc_steps_tr 60
+pr_mcmc_steps_val 60
+pr_mcmc_step_size 0.4
+pr_mcmc_noise_var 1.0
+po_mcmc_steps_tr 20
+po_mcmc_steps_val 20
+po_mcmc_steps_test 20
+po_mcmc_step_size 0.1
+po_mcmc_noise_var 1.0
+pr_mcmc_step_gamma 1.0
+po_mcmc_step_gamma 1.0
+test_perf True
+num_channel 16
+num_latent 100
+/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/scipy/ndimage/interpolation.py:583: UserWarning: From scipy 0.13.0, the output shape of zoom() is calculated with round() instead of int() - for these inputs the size of the returned array has changed.
+  "the returned array has changed.", UserWarning)
+main_LEBM_Vert_04.py:37: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  dice_score = dc(pred.astype(np.int),gt.astype(np.int))
+Traceback (most recent call last):
+  File "main_LEBM_Vert_04.py", line 340, in <module>
+    z_g = sample_langevin_post_z(z_g_0, full_patch, gen_model, e_func, args.po_mcmc_steps_tr, args.po_mcmc_step_size, args.prior_var , args.po_mcmc_noise_var, args.gen_var, args.po_mcmc_step_gamma)
+  File "/usr/itetnas04/data-scratch-01/yankwang/data/Codes/MT_LSD_EBM_ToKyr/LSDEBM_Vert/LSD-EBM_code/model_Unet_lebm.py", line 380, in sample_langevin_post_z
+    log_lkhd = 1.0 / (2.0 * g_llhd_sigma * g_llhd_sigma) * mse(x_hat, x)
+  File "/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/torch/nn/modules/loss.py", line 528, in forward
+    return F.mse_loss(input, target, reduction=self.reduction)
+  File "/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/torch/nn/functional.py", line 3090, in mse_loss
+    return torch._C._nn.mse_loss(expanded_input, expanded_target, _Reduction.get_enum(reduction))
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.

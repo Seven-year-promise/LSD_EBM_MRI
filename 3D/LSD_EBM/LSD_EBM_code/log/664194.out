@@ -1,0 +1,501 @@
+Creating directory at: ./../Vert_data/LSD-EBM_Vert/
+Pytorch Version: 1.9.0+cu111
+Experiment: Train
+Namespace(EBM_reg=0, batch_size=4, beta_end=0.01, beta_start=0.0001, cond_mcmc_step_size=0.01, cond_mcmc_steps_tr=300, cond_mcmc_steps_val=300, dec_dyn_lr=None, dec_lr=2e-05, diff_timesteps=30, ebm_dyn_lr=None, ebm_inner_dim=1000, ebm_lr=2e-05, ebm_num_layers=1, enc_dyn_lr=None, enc_lr=2e-05, ep_betw_val=2, epoch_start=0, experiment='Train', gen_var=0.3, load_from_ep=None, num_channels=16, num_epochs=0, num_latents=100, prior_bn=False, prior_var=1.0, recon_loss='bce', save_model=True, save_visu=True, test_perf=True, test_set='XXX_bodies_data_test', train_set='XXX_bodies_data_train', validation_set='XXX_bodies_data_validation')
+Main path:  ./../Vert_data/LSD-EBM_Vert/
+num_channel 16
+num_latent 100
+num_channel 16
+num_latent 100
+e_func num parameters:  1104001
+enc_model num parameters:  26336276
+dec_model num parameters:  26594865
+Training set size:  446
+Validation set size:  73
+Test set size:  74
+/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/scipy/ndimage/interpolation.py:583: UserWarning: From scipy 0.13.0, the output shape of zoom() is calculated with round() instead of int() - for these inputs the size of the returned array has changed.
+  "the returned array has changed.", UserWarning)
+main_LSDEBM_Vert_01.py:162: UserWarning: torch.range is deprecated and will be removed in a future release because its behavior is inconsistent with Python's range builtin. Instead, use torch.arange, which produces values in [start, end).
+  insert_mask = (torch.ones(hor+1)*t == torch.range(0, hor)).float().to(noise.device)
+main_LSDEBM_Vert_01.py:29: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  dice_score = dc(pred.astype(np.int),gt.astype(np.int))
+0 / 74 : Dice= 0.05738496838037295
+1 / 74 : Dice= 0.0778792029596865
+2 / 74 : Dice= 0.051587836174290816
+3 / 74 : Dice= 0.061508669197830566
+4 / 74 : Dice= 0.05787519904873343
+5 / 74 : Dice= 0.036449911567065306
+6 / 74 : Dice= 0.08997505398594316
+7 / 74 : Dice= 0.08463001880525013
+8 / 74 : Dice= 0.07560392247365617
+9 / 74 : Dice= 0.049207204852350014
+10 / 74 : Dice= 0.04144330590120699
+11 / 74 : Dice= 0.05604524256887469
+12 / 74 : Dice= 0.05590738372559226
+13 / 74 : Dice= 0.033495665236514316
+14 / 74 : Dice= 0.04232363169786944
+15 / 74 : Dice= 0.05979954565408557
+16 / 74 : Dice= 0.04448041684888575
+17 / 74 : Dice= 0.06628554567919448
+18 / 74 : Dice= 0.06657167709754162
+19 / 74 : Dice= 0.06517855207055635
+20 / 74 : Dice= 0.04257579102160897
+21 / 74 : Dice= 0.048363936528498616
+22 / 74 : Dice= 0.062228718978387144
+23 / 74 : Dice= 0.081007283774386
+24 / 74 : Dice= 0.060989794352221516
+25 / 74 : Dice= 0.07672018811376334
+26 / 74 : Dice= 0.05618308186194339
+27 / 74 : Dice= 0.04041846227448225
+28 / 74 : Dice= 0.037043554443990996
+29 / 74 : Dice= 0.05521238564652314
+30 / 74 : Dice= 0.07509345033077632
+31 / 74 : Dice= 0.03944661618708886
+32 / 74 : Dice= 0.07373912308668051
+33 / 74 : Dice= 0.10406800270311196
+34 / 74 : Dice= 0.04748449133535119
+35 / 74 : Dice= 0.06866383234233284
+36 / 74 : Dice= 0.05496707966637266
+37 / 74 : Dice= 0.045145750527595285
+38 / 74 : Dice= 0.08248028787226971
+39 / 74 : Dice= 0.03891494491919877
+40 / 74 : Dice= 0.04193795811432778
+41 / 74 : Dice= 0.06142624132061196
+42 / 74 : Dice= 0.06625523396431361
+43 / 74 : Dice= 0.03899012973800395
+44 / 74 : Dice= 0.0839072667369579
+45 / 74 : Dice= 0.03745044266462534
+46 / 74 : Dice= 0.05008781872058956
+47 / 74 : Dice= 0.08031166814958021
+48 / 74 : Dice= 0.04099323878720395
+49 / 74 : Dice= 0.055918196890528876
+50 / 74 : Dice= 0.032942310857943614
+51 / 74 : Dice= 0.04608464955290073
+52 / 74 : Dice= 0.04429714270793457
+53 / 74 : Dice= 0.055596453783663
+54 / 74 : Dice= 0.06372710594809096
+55 / 74 : Dice= 0.0480669398430283
+56 / 74 : Dice= 0.03643796150779773
+57 / 74 : Dice= 0.044678241419514785
+58 / 74 : Dice= 0.07885116847675482
+59 / 74 : Dice= 0.04762900005725423
+60 / 74 : Dice= 0.04548644474868567
+61 / 74 : Dice= 0.039108396626800275
+62 / 74 : Dice= 0.05842000913781858
+63 / 74 : Dice= 0.056042539642224665
+64 / 74 : Dice= 0.06831871628495623
+65 / 74 : Dice= 0.060031072404993974
+66 / 74 : Dice= 0.05392835319243509
+67 / 74 : Dice= 0.029795191526760478
+68 / 74 : Dice= 0.05868600989841008
+69 / 74 : Dice= 0.05918995331102998
+70 / 74 : Dice= 0.041855685793371455
+71 / 74 : Dice= 0.053127117778664856
+72 / 74 : Dice= 0.04633584099053003
+73 / 74 : Dice= 0.044639955916679915
+[0.05738496838037295, 0.0778792029596865, 0.051587836174290816, 0.061508669197830566, 0.05787519904873343, 0.036449911567065306, 0.08997505398594316, 0.08463001880525013, 0.07560392247365617, 0.049207204852350014, 0.04144330590120699, 0.05604524256887469, 0.05590738372559226, 0.033495665236514316, 0.04232363169786944, 0.05979954565408557, 0.04448041684888575, 0.06628554567919448, 0.06657167709754162, 0.06517855207055635, 0.04257579102160897, 0.048363936528498616, 0.062228718978387144, 0.081007283774386, 0.060989794352221516, 0.07672018811376334, 0.05618308186194339, 0.04041846227448225, 0.037043554443990996, 0.05521238564652314, 0.07509345033077632, 0.03944661618708886, 0.07373912308668051, 0.10406800270311196, 0.04748449133535119, 0.06866383234233284, 0.05496707966637266, 0.045145750527595285, 0.08248028787226971, 0.03891494491919877, 0.04193795811432778, 0.06142624132061196, 0.06625523396431361, 0.03899012973800395, 0.0839072667369579, 0.03745044266462534, 0.05008781872058956, 0.08031166814958021, 0.04099323878720395, 0.055918196890528876, 0.032942310857943614, 0.04608464955290073, 0.04429714270793457, 0.055596453783663, 0.06372710594809096, 0.0480669398430283, 0.03643796150779773, 0.044678241419514785, 0.07885116847675482, 0.04762900005725423, 0.04548644474868567, 0.039108396626800275, 0.05842000913781858, 0.056042539642224665, 0.06831871628495623, 0.060031072404993974, 0.05392835319243509, 0.029795191526760478, 0.05868600989841008, 0.05918995331102998, 0.041855685793371455, 0.053127117778664856, 0.04633584099053003, 0.044639955916679915]
+dice
+0.05587748900523069
+0.015395534683431685
+### Make predictions on test dataset
+## Patient 01
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/01_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 02
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/02_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 03
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/03_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 04
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/04_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 05
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/05_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 06
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/06_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 07
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/07_mri
+file not found
+# Vertebra 2
+file not found
+# Vertebra 3
+file not found
+# Vertebra 4
+file not found
+# Vertebra 5
+file not found
+## Patient 08
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/08_mri
+file not found
+# Vertebra 2
+file not found
+# Vertebra 3
+file not found
+# Vertebra 4
+file not found
+# Vertebra 5
+file not found
+## Patient 09
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/09_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 10
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/10_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 11
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/11_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 12
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/12_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 13
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/13_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 14
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/14_mri
+file not found
+# Vertebra 2
+file not found
+# Vertebra 3
+file not found
+# Vertebra 4
+file not found
+# Vertebra 5
+file not found
+## Patient 15
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/15_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 16
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/16_mri
+file not found
+# Vertebra 2
+file not found
+# Vertebra 3
+file not found
+# Vertebra 4
+file not found
+# Vertebra 5
+file not found
+## Patient 17
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/17_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 18
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/18_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 19
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/19_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1
+## Patient 20
+# Vertebra 1
+Creating directory at: ./../Vert_data/eval_test/MRI_reconstructions/my_recon4_augmheavy/20_mri
+2
+0
+1
+# Vertebra 2
+3
+0
+1
+# Vertebra 3
+4
+0
+1
+# Vertebra 4
+5
+0
+1
+# Vertebra 5
+6
+0
+1

@@ -1,0 +1,19 @@
+Creating directory at: ./../Vert_data/LSD-EBM_Vert/
+Pytorch Version: 1.9.0+cu111
+Experiment: Train
+Namespace(EBM_reg=0, batch_size=4, beta_end=0.01, beta_start=0.0001, cond_mcmc_step_size=0.01, cond_mcmc_steps_tr=300, cond_mcmc_steps_val=300, dec_dyn_lr=None, dec_lr=2e-05, diff_timesteps=30, ebm_dyn_lr=None, ebm_inner_dim=1000, ebm_lr=2e-05, ebm_num_layers=1, enc_dyn_lr=None, enc_lr=2e-05, ep_betw_val=2, epoch_start=0, experiment='Train', gen_var=0.3, load_from_ep=None, num_channels=16, num_epochs='200', num_latents=100, prior_bn=False, prior_var=1.0, recon_loss='bce', save_model=True, save_visu=True, test_perf=True, test_set='XXX_bodies_data_test', train_set='XXX_bodies_data_train', validation_set='XXX_bodies_data_validation')
+Main path:  ./../Vert_data/LSD-EBM_Vert/
+num_channel 16
+num_latent 100
+num_channel 16
+num_latent 100
+e_func num parameters:  1104001
+enc_model num parameters:  26336276
+dec_model num parameters:  26594865
+Training set size:  446
+Validation set size:  73
+Test set size:  74
+Traceback (most recent call last):
+  File "main_LSDEBM_Vert_01.py", line 388, in <module>
+    for epoch in range(args.epoch_start,args.epoch_start+args.num_epochs):
+TypeError: unsupported operand type(s) for +: 'int' and 'str'

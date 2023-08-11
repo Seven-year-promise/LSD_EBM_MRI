@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "main_LEBM_Vert_04.py", line 17, in <module>
+    from miseval import evaluate
+  File "/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/miseval-1.2.2-py3.7.egg/miseval/__init__.py", line 48, in <module>
+  File "/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/miseval-1.2.2-py3.7.egg/miseval/hausdorff.py", line 25, in <module>
+  File "/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/hausdorff-0.2.6-py3.7.egg/hausdorff/__init__.py", line 1, in <module>
+  File "/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/hausdorff-0.2.6-py3.7.egg/hausdorff/hausdorff.py", line 2, in <module>
+  File "/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/numba-0.55.2-py3.7-linux-x86_64.egg/numba/__init__.py", line 19, in <module>
+    from numba.core import config
+  File "/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/numba-0.55.2-py3.7-linux-x86_64.egg/numba/core/config.py", line 15, in <module>
+    import llvmlite.binding as ll
+ModuleNotFoundError: No module named 'llvmlite'

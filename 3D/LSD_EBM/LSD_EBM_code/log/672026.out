@@ -1,0 +1,447 @@
+num_epochs 201
+batch_size 2
+ebm_lr 0.0001
+gen_lr 0.0001
+load_from_ep None
+epoch_start 0
+recon_loss bce
+ebm_dyn_lr None
+gen_dyn_lr None
+EBM_reg 0
+save_model True
+train_set XXX_bodies_data_train
+validation_set XXX_bodies_data_validation
+test_set XXX_bodies_data_test
+experiment Test
+save_visu True
+ep_betw_val 1
+num_channels 16
+num_latents 100
+prior_var 1.0
+prior_bn True
+gen_var 0.3
+ebm_num_layers 3
+ebm_inner_dim 300
+use_samp_buff False
+samp_buff_size 256
+pr_mcmc_steps_tr 2
+pr_mcmc_steps_val 2
+pr_mcmc_step_size 0.4
+pr_mcmc_noise_var 1.0
+po_mcmc_steps_tr 20
+po_mcmc_steps_val 20
+po_mcmc_steps_test 20
+po_mcmc_step_size 0.1
+po_mcmc_noise_var 1.0
+pr_mcmc_step_gamma 1.0
+po_mcmc_step_gamma 1.0
+test_perf True
+num_channel 16
+num_latent 100
+/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/scipy/ndimage/interpolation.py:583: UserWarning: From scipy 0.13.0, the output shape of zoom() is calculated with round() instead of int() - for these inputs the size of the returned array has changed.
+  "the returned array has changed.", UserWarning)
+main_LEBM_Vert_04.py:37: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  dice_score = dc(pred.astype(np.int),gt.astype(np.int))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+Pytorch Version: 1.12.0+cu102
+Experiment: Test
+Namespace(num_epochs=0, batch_size=4, ebm_lr=2e-05, enc_lr=2e-05, dec_lr=2e-05, load_from_ep=None, epoch_start=0, recon_loss='bce', ebm_dyn_lr=None, enc_dyn_lr=None, dec_dyn_lr=None, EBM_reg=0, save_model=True, train_set='XXX_bodies_data_train', validation_set='XXX_bodies_data_validation', test_set='XXX_bodies_data_test', experiment='Test', save_visu=True, ep_betw_val=2, num_channels=16, num_latents=100, prior_var=1.0, gen_var=0.3, ebm_num_layers=1, ebm_inner_dim=1000, prior_bn=False, cond_mcmc_steps_tr=300, cond_mcmc_steps_val=300, cond_mcmc_step_size=0.01, diff_timesteps=30, beta_start=0.0001, beta_end=0.01, test_perf=True)
+Main path:  ./vert_data/LSD-EBM_Vert/
+/itet-stor/yankwang/net_scratch/conda_envs/lsdebm_environment/lib/python3.9/site-packages/torch/cuda/__init__.py:146: UserWarning: 
+NVIDIA A100-PCIE-40GB with CUDA capability sm_80 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_70.
+If you want to use the NVIDIA A100-PCIE-40GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  warnings.warn(incompatible_device_warn.format(device_name, capability, " ".join(arch_list), device_name))
+num_channel 16
+num_latent 100
+num_channel 16
+num_latent 100
+e_func num parameters:  1104001
+enc_model num parameters:  26336276
+dec_model num parameters:  26594865
+Traceback (most recent call last):
+  File "/itet-stor/yankwang/net_scratch/conda_envs/lsdebm_environment/lib/python3.9/site-packages/nibabel/loadsave.py", line 42, in load
+    stat_result = os.stat(filename)
+FileNotFoundError: [Errno 2] No such file or directory: './vert_data/LSD-EBM_Vert/../XXX_bodies_data_test/full/L1_verse033_seg.nii.gz'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/itetnas04/data-scratch-01/yankwang/data/Codes/MT_LSD_EBM_ToKyr/LSDEBM_Vert/LSD-EBM_code/main_LSDEBM_Vert_01.py", line 321, in <module>
+    fixed_full, fixed_body = load_fixed(fixed_images, test_root)
+  File "/usr/itetnas04/data-scratch-01/yankwang/data/Codes/MT_LSD_EBM_ToKyr/LSDEBM_Vert/LSD-EBM_code/main_LSDEBM_Vert_01.py", line 56, in load_fixed
+    full_patch = np.round(nib.load(img_file).get_fdata()).astype('uint8')
+  File "/itet-stor/yankwang/net_scratch/conda_envs/lsdebm_environment/lib/python3.9/site-packages/nibabel/loadsave.py", line 44, in load
+    raise FileNotFoundError(f"No such file or no access: '{filename}'")
+FileNotFoundError: No such file or no access: './vert_data/LSD-EBM_Vert/../XXX_bodies_data_test/full/L1_verse033_seg.nii.gz'

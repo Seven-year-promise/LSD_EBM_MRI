@@ -1,0 +1,362 @@
+Pytorch Version: 1.9.0+cu111
+Experiment: Train
+Namespace(EBM_reg=0, batch_size=4, beta_end=0.01, beta_start=0.0001, cond_mcmc_step_size=0.01, cond_mcmc_steps_tr=300, cond_mcmc_steps_val=300, dec_dyn_lr=None, dec_lr=2e-05, diff_timesteps=30, ebm_dyn_lr=None, ebm_inner_dim=1000, ebm_lr=2e-05, ebm_num_layers=1, enc_dyn_lr=None, enc_lr=2e-05, ep_betw_val=2, epoch_start=0, experiment='Train', gen_var=0.3, load_from_ep=None, num_channels=16, num_epochs=200, num_latents=100, prior_bn=False, prior_var=1.0, recon_loss='bce', save_model=True, save_visu=True, test_perf=True, test_set='XXX_bodies_data_test', train_set='XXX_bodies_data_train', validation_set='XXX_bodies_data_validation')
+Main path:  ./../Vert_data/LSD-EBM_Vert/
+num_channel 16
+num_latent 100
+num_channel 16
+num_latent 100
+e_func num parameters:  1104001
+enc_model num parameters:  26336276
+dec_model num parameters:  26594865
+Training set size:  446
+Validation set size:  73
+Test set size:  74
+main_LSDEBM_Vert_01.py:29: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  dice_score = dc(pred.astype(np.int),gt.astype(np.int))
+[0/200][0/111]	en_real: -0.1585	en_noise: -0.1560	en_samp: -0.1578	E_l: -0.0007	Recon_l: 1733425.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0652	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+/itet-stor/yankwang/net_scratch/conda_envs/ve_py37_lsd_A100_20230202/lib/python3.7/site-packages/scipy/ndimage/interpolation.py:583: UserWarning: From scipy 0.13.0, the output shape of zoom() is calculated with round() instead of int() - for these inputs the size of the returned array has changed.
+  "the returned array has changed.", UserWarning)
+[0/200][1/111]	en_real: -0.0137	en_noise: -0.0142	en_samp: -0.0126	E_l: -0.0012	Recon_l: 1733465.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0435	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][2/111]	en_real: -0.0333	en_noise: -0.0339	en_samp: -0.0347	E_l: 0.0014	Recon_l: 1723057.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0551	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][3/111]	en_real: 0.0508	en_noise: 0.0475	en_samp: 0.0505	E_l: 0.0003	Recon_l: 1712091.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0750	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][4/111]	en_real: -0.1026	en_noise: -0.1012	en_samp: -0.1025	E_l: -0.0001	Recon_l: 1701856.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0736	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][5/111]	en_real: -0.0197	en_noise: -0.0164	en_samp: -0.0193	E_l: -0.0004	Recon_l: 1706419.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0557	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][6/111]	en_real: -0.2602	en_noise: -0.2561	en_samp: -0.2612	E_l: 0.0011	Recon_l: 1702461.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0536	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][7/111]	en_real: -0.3651	en_noise: -0.3638	en_samp: -0.3676	E_l: 0.0026	Recon_l: 1689836.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0688	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][8/111]	en_real: -0.1861	en_noise: -0.1832	en_samp: -0.1866	E_l: 0.0004	Recon_l: 1690788.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0583	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][9/111]	en_real: -0.7202	en_noise: -0.7067	en_samp: -0.7203	E_l: 0.0002	Recon_l: 1682213.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0597	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][10/111]	en_real: -0.4886	en_noise: -0.4841	en_samp: -0.4890	E_l: 0.0004	Recon_l: 1681477.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0540	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][11/111]	en_real: -0.5419	en_noise: -0.4375	en_samp: -0.4438	E_l: -0.0981	Recon_l: 1668533.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0692	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][12/111]	en_real: -0.3433	en_noise: -0.2796	en_samp: -0.2753	E_l: -0.0680	Recon_l: 1664230.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0602	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][13/111]	en_real: -0.8333	en_noise: -0.8222	en_samp: -0.8340	E_l: 0.0007	Recon_l: 1659765.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0506	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][14/111]	en_real: -0.8197	en_noise: -0.6868	en_samp: -0.6863	E_l: -0.1334	Recon_l: 1645980.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0693	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][15/111]	en_real: -1.4107	en_noise: -1.3784	en_samp: -1.4104	E_l: -0.0003	Recon_l: 1639383.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0672	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][16/111]	en_real: -1.4453	en_noise: -1.4151	en_samp: -1.4475	E_l: 0.0022	Recon_l: 1638493.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0565	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][17/111]	en_real: -1.6579	en_noise: -1.6278	en_samp: -1.6585	E_l: 0.0006	Recon_l: 1623796.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0729	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][18/111]	en_real: -1.7316	en_noise: -1.6925	en_samp: -1.7325	E_l: 0.0009	Recon_l: 1612956.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0788	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][19/111]	en_real: -1.7109	en_noise: -1.6696	en_samp: -1.7098	E_l: -0.0011	Recon_l: 1614569.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0642	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][20/111]	en_real: -1.8027	en_noise: -1.4367	en_samp: -1.4628	E_l: -0.3399	Recon_l: 1605564.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0802	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][21/111]	en_real: -2.2244	en_noise: -2.1833	en_samp: -2.2263	E_l: 0.0019	Recon_l: 1599649.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0631	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][22/111]	en_real: -2.3154	en_noise: -2.2894	en_samp: -2.3169	E_l: 0.0015	Recon_l: 1590248.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0692	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][23/111]	en_real: -2.3259	en_noise: -2.2593	en_samp: -2.3270	E_l: 0.0011	Recon_l: 1580082.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0759	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][24/111]	en_real: -2.7436	en_noise: -2.7207	en_samp: -2.7440	E_l: 0.0004	Recon_l: 1575045.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0646	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][25/111]	en_real: -2.8949	en_noise: -2.8268	en_samp: -2.8960	E_l: 0.0010	Recon_l: 1560302.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0817	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][26/111]	en_real: -3.0395	en_noise: -2.4298	en_samp: -2.4485	E_l: -0.5910	Recon_l: 1554746.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0786	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][27/111]	en_real: -2.7395	en_noise: -2.6765	en_samp: -2.7392	E_l: -0.0003	Recon_l: 1550190.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0663	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][28/111]	en_real: -3.4907	en_noise: -3.4608	en_samp: -3.4909	E_l: 0.0002	Recon_l: 1540394.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0786	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][29/111]	en_real: -3.3297	en_noise: -3.2987	en_samp: -3.3314	E_l: 0.0017	Recon_l: 1536505.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0662	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][30/111]	en_real: -3.3759	en_noise: -3.2827	en_samp: -3.3786	E_l: 0.0026	Recon_l: 1516682.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0796	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][31/111]	en_real: -3.9395	en_noise: -3.8899	en_samp: -3.9393	E_l: -0.0003	Recon_l: 1511319.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0937	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][32/111]	en_real: -3.8218	en_noise: -2.3157	en_samp: -2.2896	E_l: -1.5322	Recon_l: 1501619.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0812	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][33/111]	en_real: -4.4197	en_noise: -4.3843	en_samp: -4.4196	E_l: -0.0000	Recon_l: 1480407.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0977	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][34/111]	en_real: -4.1974	en_noise: -3.3324	en_samp: -3.3672	E_l: -0.8302	Recon_l: 1483656.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0871	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][35/111]	en_real: -4.0958	en_noise: -3.9897	en_samp: -4.0965	E_l: 0.0008	Recon_l: 1479212.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.0756	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][36/111]	en_real: -5.0511	en_noise: -4.9587	en_samp: -5.0530	E_l: 0.0020	Recon_l: 1458237.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1059	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][37/111]	en_real: -5.5458	en_noise: -5.4396	en_samp: -5.5459	E_l: 0.0001	Recon_l: 1455297.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1009	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][38/111]	en_real: -6.2361	en_noise: -6.1566	en_samp: -6.2368	E_l: 0.0007	Recon_l: 1437526.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1246	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][39/111]	en_real: -5.9336	en_noise: -5.8468	en_samp: -5.9341	E_l: 0.0004	Recon_l: 1431334.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1126	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][40/111]	en_real: -6.0665	en_noise: -5.9383	en_samp: -6.0680	E_l: 0.0015	Recon_l: 1417301.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1303	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][41/111]	en_real: -6.2391	en_noise: -6.1321	en_samp: -6.2392	E_l: 0.0001	Recon_l: 1403380.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1357	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][42/111]	en_real: -6.1087	en_noise: -5.9945	en_samp: -6.1126	E_l: 0.0039	Recon_l: 1418040.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1125	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][43/111]	en_real: -6.4056	en_noise: -6.2899	en_samp: -6.4048	E_l: -0.0007	Recon_l: 1397868.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1296	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][44/111]	en_real: -6.8021	en_noise: -6.6902	en_samp: -6.8028	E_l: 0.0006	Recon_l: 1387554.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1231	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][45/111]	en_real: -6.9365	en_noise: -6.8334	en_samp: -6.9387	E_l: 0.0022	Recon_l: 1371544.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1414	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][46/111]	en_real: -7.1572	en_noise: -6.9964	en_samp: -7.1575	E_l: 0.0003	Recon_l: 1352128.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1726	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][47/111]	en_real: -7.6155	en_noise: -7.4671	en_samp: -7.6169	E_l: 0.0014	Recon_l: 1344906.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1667	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][48/111]	en_real: -7.2513	en_noise: -7.1206	en_samp: -7.2545	E_l: 0.0032	Recon_l: 1346279.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1564	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][49/111]	en_real: -7.5097	en_noise: -7.3903	en_samp: -7.5101	E_l: 0.0004	Recon_l: 1340344.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1696	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][50/111]	en_real: -7.5929	en_noise: -7.4532	en_samp: -7.5922	E_l: -0.0007	Recon_l: 1328031.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1681	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][51/111]	en_real: -8.6943	en_noise: -8.6010	en_samp: -8.6944	E_l: 0.0001	Recon_l: 1322070.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1812	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][52/111]	en_real: -7.5778	en_noise: -7.4320	en_samp: -7.5805	E_l: 0.0027	Recon_l: 1320905.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1971	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][53/111]	en_real: -8.4451	en_noise: -8.3066	en_samp: -8.4451	E_l: 0.0000	Recon_l: 1309074.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.1973	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][54/111]	en_real: -8.3309	en_noise: -8.1794	en_samp: -8.3329	E_l: 0.0020	Recon_l: 1293849.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2241	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][55/111]	en_real: -8.3997	en_noise: -8.2642	en_samp: -8.4003	E_l: 0.0005	Recon_l: 1290954.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2156	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][56/111]	en_real: -7.5211	en_noise: -4.8218	en_samp: -4.7842	E_l: -2.7369	Recon_l: 1275825.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2346	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][57/111]	en_real: -7.6850	en_noise: -7.4795	en_samp: -7.6818	E_l: -0.0032	Recon_l: 1274738.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2310	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][58/111]	en_real: -7.7835	en_noise: -6.2756	en_samp: -6.3568	E_l: -1.4267	Recon_l: 1274656.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2444	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][59/111]	en_real: -8.2623	en_noise: -8.1174	en_samp: -8.2639	E_l: 0.0016	Recon_l: 1273329.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2379	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][60/111]	en_real: -8.8763	en_noise: -8.7120	en_samp: -8.8750	E_l: -0.0013	Recon_l: 1273409.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2309	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][61/111]	en_real: -8.4306	en_noise: -8.2201	en_samp: -8.4325	E_l: 0.0019	Recon_l: 1259791.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2430	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][62/111]	en_real: -9.1999	en_noise: -8.9976	en_samp: -9.2001	E_l: 0.0002	Recon_l: 1247498.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2842	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][63/111]	en_real: -9.1923	en_noise: -7.3339	en_samp: -7.3905	E_l: -1.8018	Recon_l: 1246293.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2925	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][64/111]	en_real: -9.9381	en_noise: -9.7790	en_samp: -9.9379	E_l: -0.0002	Recon_l: 1243904.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.2842	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][65/111]	en_real: -9.6337	en_noise: -9.4054	en_samp: -9.6364	E_l: 0.0027	Recon_l: 1238512.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3110	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][66/111]	en_real: -10.3295	en_noise: -10.1199	en_samp: -10.3305	E_l: 0.0010	Recon_l: 1235248.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3043	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][67/111]	en_real: -9.9511	en_noise: -9.7316	en_samp: -9.9519	E_l: 0.0008	Recon_l: 1237733.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3063	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][68/111]	en_real: -11.0322	en_noise: -10.8210	en_samp: -11.0358	E_l: 0.0036	Recon_l: 1223716.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3275	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][69/111]	en_real: -11.3593	en_noise: -11.1465	en_samp: -11.3608	E_l: 0.0015	Recon_l: 1221732.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3293	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][70/111]	en_real: -10.5498	en_noise: -10.2811	en_samp: -10.5505	E_l: 0.0007	Recon_l: 1227710.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3150	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][71/111]	en_real: -11.9210	en_noise: -11.7154	en_samp: -11.9227	E_l: 0.0017	Recon_l: 1216031.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3075	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][72/111]	en_real: -11.8180	en_noise: -11.5867	en_samp: -11.8201	E_l: 0.0020	Recon_l: 1205930.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3600	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][73/111]	en_real: -11.3173	en_noise: -9.0888	en_samp: -9.2048	E_l: -2.1125	Recon_l: 1204240.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3520	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][74/111]	en_real: -13.6809	en_noise: -13.5430	en_samp: -13.6793	E_l: -0.0016	Recon_l: 1209629.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3475	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][75/111]	en_real: -12.1553	en_noise: -11.9104	en_samp: -12.1582	E_l: 0.0029	Recon_l: 1203929.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3663	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][76/111]	en_real: -12.8987	en_noise: -12.7352	en_samp: -12.8997	E_l: 0.0010	Recon_l: 1196507.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3394	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][77/111]	en_real: -13.9871	en_noise: -13.7812	en_samp: -13.9873	E_l: 0.0001	Recon_l: 1194915.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3527	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][78/111]	en_real: -13.9204	en_noise: -13.7009	en_samp: -13.9209	E_l: 0.0005	Recon_l: 1186862.3750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3749	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][79/111]	en_real: -12.5956	en_noise: -12.2840	en_samp: -12.5970	E_l: 0.0014	Recon_l: 1194217.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3579	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][80/111]	en_real: -13.2291	en_noise: -12.9257	en_samp: -13.2286	E_l: -0.0004	Recon_l: 1183302.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3819	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][81/111]	en_real: -14.0911	en_noise: -13.8461	en_samp: -14.0945	E_l: 0.0034	Recon_l: 1187115.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3360	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][82/111]	en_real: -15.0503	en_noise: -14.8934	en_samp: -15.0516	E_l: 0.0012	Recon_l: 1209493.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3208	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][83/111]	en_real: -14.9616	en_noise: -14.7107	en_samp: -14.9639	E_l: 0.0023	Recon_l: 1177123.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3670	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][84/111]	en_real: -12.6717	en_noise: -12.3191	en_samp: -12.6765	E_l: 0.0048	Recon_l: 1167639.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3957	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][85/111]	en_real: -14.3502	en_noise: -14.0538	en_samp: -14.3498	E_l: -0.0005	Recon_l: 1173519.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3743	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][86/111]	en_real: -14.1317	en_noise: -13.8783	en_samp: -14.1349	E_l: 0.0032	Recon_l: 1170522.2500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3542	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][87/111]	en_real: -15.1145	en_noise: -14.8858	en_samp: -15.1150	E_l: 0.0005	Recon_l: 1163537.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4036	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][88/111]	en_real: -15.4362	en_noise: -15.1557	en_samp: -15.4377	E_l: 0.0015	Recon_l: 1158638.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4177	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][89/111]	en_real: -14.0705	en_noise: -13.8061	en_samp: -14.0756	E_l: 0.0051	Recon_l: 1162328.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3954	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][90/111]	en_real: -13.9306	en_noise: -13.6696	en_samp: -13.9319	E_l: 0.0013	Recon_l: 1159123.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3837	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][91/111]	en_real: -14.2000	en_noise: -13.9871	en_samp: -14.2022	E_l: 0.0022	Recon_l: 1158824.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3724	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][92/111]	en_real: -15.2625	en_noise: -15.0761	en_samp: -15.2626	E_l: 0.0001	Recon_l: 1155449.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3929	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][93/111]	en_real: -15.8450	en_noise: -15.6305	en_samp: -15.8477	E_l: 0.0027	Recon_l: 1157996.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3859	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][94/111]	en_real: -12.9720	en_noise: -12.6307	en_samp: -12.9726	E_l: 0.0006	Recon_l: 1151429.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3992	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][95/111]	en_real: -14.8318	en_noise: -12.1405	en_samp: -12.2396	E_l: -2.5922	Recon_l: 1150224.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4060	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][96/111]	en_real: -15.5566	en_noise: -15.3560	en_samp: -15.5561	E_l: -0.0005	Recon_l: 1146423.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4054	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][97/111]	en_real: -15.8234	en_noise: -15.5392	en_samp: -15.8221	E_l: -0.0014	Recon_l: 1141188.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4142	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][98/111]	en_real: -14.4805	en_noise: -11.4420	en_samp: -11.5428	E_l: -2.9377	Recon_l: 1136274.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4360	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][99/111]	en_real: -15.1962	en_noise: -14.9345	en_samp: -15.1960	E_l: -0.0002	Recon_l: 1145534.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3835	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][100/111]	en_real: -15.3366	en_noise: -14.9914	en_samp: -15.3352	E_l: -0.0013	Recon_l: 1136071.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4135	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][101/111]	en_real: -15.2451	en_noise: -14.8748	en_samp: -15.2478	E_l: 0.0027	Recon_l: 1143550.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.3875	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][102/111]	en_real: -17.2742	en_noise: -16.9743	en_samp: -17.2743	E_l: 0.0001	Recon_l: 1144029.0000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4045	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][103/111]	en_real: -17.7926	en_noise: -17.5366	en_samp: -17.7946	E_l: 0.0020	Recon_l: 1134807.6250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4031	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][104/111]	en_real: -15.8233	en_noise: -15.4122	en_samp: -15.8268	E_l: 0.0036	Recon_l: 1124079.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4374	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][105/111]	en_real: -15.7945	en_noise: -15.4369	en_samp: -15.7941	E_l: -0.0004	Recon_l: 1124744.5000	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4395	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][106/111]	en_real: -19.1810	en_noise: -18.9562	en_samp: -19.1815	E_l: 0.0005	Recon_l: 1130197.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4317	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][107/111]	en_real: -18.4967	en_noise: -18.1951	en_samp: -18.4959	E_l: -0.0008	Recon_l: 1112672.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4627	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][108/111]	en_real: -18.1452	en_noise: -17.8220	en_samp: -18.1443	E_l: -0.0009	Recon_l: 1130053.8750	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4001	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][109/111]	en_real: -19.1540	en_noise: -18.8194	en_samp: -19.1525	E_l: -0.0015	Recon_l: 1118223.7500	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4414	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+[0/200][110/111]	en_real: -20.8893	en_noise: -20.6951	en_samp: -20.8907	E_l: 0.0014	Recon_l: 1113755.1250	Recon_l_1: 0.0000	Recon_l_2: 0.0000	Recon_l_3: 0.0000	Recon_l_4: 0.0000	Recon_l_5: 0.0000	Recon_l_6: 0.0000	Dice: 0.4408	DiceProc: 0.0000	FID: 0.0000 
+
+STORE EXAMPLE PATCHES.
+
+train Epoch: 0 	  En real: -8.4849 	  En noise: -8.1867 	  En samp: -8.3307 	  ELoss: -0.1542 	 ReconLoss: 1359020.6554 	 ReconLoss_1: 0.0000 	 ReconLoss_2: 0.0000 	 ReconLoss_3: 0.0000 	 ReconLoss_4: 0.0000 	 ReconLoss_5: 0.0000 	 ReconLoss_6: 0.0000 	 VaeDice: 0.2277 	 VaeDiceProc: 0.0 	 FID: 0.0000%
+
+
+main_LSDEBM_Vert_01.py:162: UserWarning: torch.range is deprecated and will be removed in a future release because its behavior is inconsistent with Python's range builtin. Instead, use torch.arange, which produces values in [start, end).
+  insert_mask = (torch.ones(hor+1)*t == torch.range(0, hor)).float().to(noise.device)
+Traceback (most recent call last):
+  File "main_LSDEBM_Vert_01.py", line 604, in <module>
+    cov1  = torch.cov(z_inf.view(-1, args.num_latents)).cpu()# z_inf.view(-1, args.num_latents).cov().cpu()
+AttributeError: module 'torch' has no attribute 'cov'
