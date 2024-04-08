@@ -48,7 +48,7 @@ def wasserstein_2_1d(p, q):
 
 #%%Main
 if  __name__ == "__main__" :   
-    run_name = "compare_latent_lsdebm_lebm"
+    run_name = "compare_latent_lsdebm_lebm_conference"
     main_path="./comp_results/" + run_name + "/" 
 
     if not os.path.exists(main_path):
@@ -317,6 +317,9 @@ if  __name__ == "__main__" :
 
 
     plt.savefig(os.path.join(main_path, "latent3.png"))
+    np.savetxt(os.path.join(main_path, "latent_eval_lebm_1.txt"), latent_eval_lebm_1, delimiter=',')
+    np.savetxt(os.path.join(main_path, "latent_eval_lebm_2.txt"), latent_eval_lebm_2, delimiter=',')
+    np.savetxt(os.path.join(main_path, "latent_eval_lebm_3.txt"), latent_eval_lebm_3, delimiter=',')
 
     plt.clf()
 
@@ -388,8 +391,9 @@ if  __name__ == "__main__" :
 
     plt.tight_layout()
     plt.savefig(os.path.join(main_path, "gaussinity_lsd_ebm_latent3.png"))
-
-
+    np.savetxt(os.path.join(main_path, "gaussianity_lsdebm_bp_1.txt"), gaussianity_lsdebm_bp_1, delimiter=',')
+    np.savetxt(os.path.join(main_path, "gaussianity_lsdebm_bp_2.txt"), gaussianity_lsdebm_bp_2, delimiter=',')
+    np.savetxt(os.path.join(main_path, "gaussianity_lsdebm_bp_3.txt"), gaussianity_lsdebm_bp_3, delimiter=',')
     plt.clf()
 
     plt.plot(var_lsdebm_fp_1[:, 0], var_lsdebm_fp_1[:, 1], linewidth=2.0, linestyle="-", color="#FFBE7A", label="Diffusion process (run 1)")
@@ -420,6 +424,9 @@ if  __name__ == "__main__" :
 
 
     plt.savefig(os.path.join(main_path, "var_lsd_ebm_latent3.png"))
+    np.savetxt(os.path.join(main_path, "var_lsdebm_fp_1.txt"), var_lsdebm_fp_1, delimiter=',')
+    np.savetxt(os.path.join(main_path, "var_lsdebm_fp_2.txt"), var_lsdebm_fp_2, delimiter=',')
+    np.savetxt(os.path.join(main_path, "var_lsdebm_fp_3.txt"), var_lsdebm_fp_3, delimiter=',')
 
 
     plt.clf()
@@ -447,6 +454,9 @@ if  __name__ == "__main__" :
 
 
     plt.savefig(os.path.join(main_path, "gaussinity_lebm_latent3.png"))
+    np.savetxt(os.path.join(main_path, "gaussianity_lebm_1.txt"), gaussianity_lebm_1, delimiter=',')
+    np.savetxt(os.path.join(main_path, "gaussianity_lebm_2.txt"), gaussianity_lebm_2, delimiter=',')
+    np.savetxt(os.path.join(main_path, "gaussianity_lebm_3.txt"), gaussianity_lebm_3, delimiter=',')
 
     plt.clf()
     #plt.plot(gaussianity_lsdebm_fp[:, 0], gaussianity_lsdebm_fp[:, 1], linewidth=2.0, linestyle="-", color="#FFBE7A", label="Diffusion process (LSD-EBM)")
@@ -473,6 +483,9 @@ if  __name__ == "__main__" :
 
 
     plt.savefig(os.path.join(main_path, "var_lebm_latent3.png"))
+    np.savetxt(os.path.join(main_path, "var_lebm_1.txt"), var_lebm_1, delimiter=',')
+    np.savetxt(os.path.join(main_path, "var_lebm_2.txt"), var_lebm_2, delimiter=',')
+    np.savetxt(os.path.join(main_path, "var_lebm_3.txt"), var_lebm_3, delimiter=',')
 
     """
     #plt.clf()

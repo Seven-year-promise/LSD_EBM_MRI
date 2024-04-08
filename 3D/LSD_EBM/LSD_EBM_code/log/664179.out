@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "main_LSDEBM_Vert_01.py", line 16, in <module>
-    from medpy.metric.binary import dc
-ModuleNotFoundError: No module named 'medpy'
