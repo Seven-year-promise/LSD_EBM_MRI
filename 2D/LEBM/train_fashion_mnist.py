@@ -40,12 +40,12 @@ def parse_args():
 
     parser.add_argument('--gpu_deterministic', type=bool, default=False, help='set cudnn in deterministic mode (slow)')
 
-    parser.add_argument('--dataset', type=str, default='svhn', choices=['svhn', 'celeba', 'celeba_crop', 'celeba32_sri', 'celeba64_sri', 'celeba64_sri_crop'])
+    parser.add_argument('--dataset', type=str, default='fashion_mnist', choices=['fashion_mnist', 'celeba', 'celeba_crop', 'celeba32_sri', 'celeba64_sri', 'celeba64_sri_crop'])
     parser.add_argument('--img_size', default=32, type=int)
     parser.add_argument('--batch_size', default=100, type=int)
 
     parser.add_argument('--nz', type=int, default=100, help='size of the latent z vector')
-    parser.add_argument('--nc', default=3)
+    parser.add_argument('--nc', default=1)
 
     parser.add_argument('--nez', default=1, help='size of the output of ebm')
     parser.add_argument('--ngf', default=64, help='feature dimensions of generator')
@@ -98,7 +98,7 @@ def parse_args():
     # parser.add_argument('--n_metrics', type=int, default=1, help='fid each n epochs')
     parser.add_argument('--n_stats', type=int, default=1, help='stats each n epochs')
 
-    parser.add_argument('--n_fid_samples', type=int, default=50000) # TODO(nijkamp): we used 40,000 in short-run inference
+    parser.add_argument('--n_fid_samples', type=int, default=10000) # TODO(nijkamp): we used 40,000 in short-run inference
     # parser.add_argument('--n_fid_samples', type=int, default=1000)
 
     return parser.parse_args()
@@ -159,21 +159,24 @@ def update_job_result(job_opt, job_stats):
 
 def get_dataset(args):
 
-    fs_prefix = './' if not is_xsede() else '/pylon5/ac561ep/enijkamp/ebm_prior/'
+    fs_prefix = "../"
+    if not os.path.exists(fs_prefix):
+        print('Creating directory at:', fs_prefix)
+        os.makedirs(fs_prefix)
 
-    if args.dataset == 'svhn':
+    if args.dataset == 'fashion_mnist':
         import torchvision.transforms as transforms
-        ds_train = torchvision.datasets.SVHN(fs_prefix + 'data/{}'.format(args.dataset), download=True,
+        ds_train = torchvision.datasets.FashionMNIST(fs_prefix + 'data/{}'.format(args.dataset), download=True, train=True,
                                              transform=transforms.Compose([
                                              transforms.Resize(args.img_size),
                                              transforms.ToTensor(),
-                                             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                                             transforms.Normalize((0.5), (0.5)),
                                ]))
-        ds_val = torchvision.datasets.SVHN(fs_prefix + 'data/{}'.format(args.dataset), download=True, split='test',
+        ds_val = torchvision.datasets.FashionMNIST(fs_prefix + 'data/{}'.format(args.dataset), download=True, train=False,
                                              transform=transforms.Compose([
                                              transforms.Resize(args.img_size),
                                              transforms.ToTensor(),
-                                             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+                                             transforms.Normalize((0.5), (0.5)),
                                ]))
         return ds_train, ds_val
 
@@ -355,7 +358,11 @@ class _netG(nn.Module):
             nn.BatchNorm2d(args.ngf*2) if args.g_batchnorm else nn.Identity(),
             f,
 
-            #nn.ConvTranspose2d(args.ngf*2, args.ngf*1, 4, 2, 1, bias = not args.g_batchnorm),
+            #nn.ConvTranspose2d(args.ngf*2, args.ngf*1, 4, 1, 1, bias = not args.g_batchnorm),
+            #nn.BatchNorm2d(args.ngf*1) if args.g_batchnorm else nn.Identity(),
+            #f,
+
+            #nn.ConvTranspose2d(args.ngf*2, args.ngf*1, 4, 1, 1, bias = not args.g_batchnorm),
             #nn.BatchNorm2d(args.ngf*1) if args.g_batchnorm else nn.Identity(),
             #f,
 
@@ -422,13 +429,18 @@ def train(args_job, output_dir_job, output_dir, return_dict):
     logger.info('len(ds_train)={}'.format(len(ds_train)))
     logger.info('len(ds_val)={}'.format(len(ds_val)))
 
+    img_shape = ds_train[0][0].size()
     dataloader_train = torch.utils.data.DataLoader(ds_train, batch_size=args.batch_size, shuffle=True, num_workers=0)
     dataloader_val = torch.utils.data.DataLoader(ds_val, batch_size=args.batch_size, shuffle=True, num_workers=0)
 
     assert len(ds_train) >= args.n_fid_samples
     to_range_0_1 = lambda x: (x + 1.) / 2.
-    ds_fid = np.array(torch.stack([to_range_0_1(ds_train[i][0]) for i in range(len(ds_train))]).cpu().numpy())
-    logger.info('ds_fid.shape={}'.format(ds_fid.shape))
+
+    assert len(ds_val) >= args.n_fid_samples
+    to_range_0_1_val = lambda x: (x + 1.) / 2.
+
+    ds_fid_val = np.array(torch.stack([to_range_0_1_val(ds_val[i][0]) for i in range(len(ds_val))]).cpu().numpy())
+    logger.info('ds_fid.shape={}'.format(ds_fid_val.shape))
 
     def plot(p, x):
         return torchvision.utils.save_image(torch.clamp(x, -1., 1.), p, normalize=True, nrow=int(np.sqrt(args.batch_size)))
@@ -531,7 +543,7 @@ def train(args_job, output_dir_job, output_dir, return_dict):
 
     def get_fid(n):
 
-        assert n <= ds_fid.shape[0]
+        assert n <= ds_fid_val.shape[0]
 
         logger.info('computing fid with {} samples'.format(n))
 
@@ -544,7 +556,7 @@ def train(args_job, output_dir_job, output_dir, return_dict):
                 x_samples = to_range_0_1(netG(z_k)).clamp(min=0., max=1.).detach().cpu()
                 return x_samples
             x_samples = torch.cat([sample_x() for _ in range(int(n / args.batch_size))]).numpy()
-            fid = compute_fid_nchw(args, ds_fid, x_samples)
+            fid = compute_fid_nchw(args, ds_fid_val, x_samples)
             return fid
 
         except Exception as e:
@@ -565,6 +577,8 @@ def train(args_job, output_dir_job, output_dir, return_dict):
     fid = 0.0
     fid_best = math.inf
 
+    recon_val = 0.0
+
     z_fixed = sample_p_0()
     x_fixed = next(iter(dataloader_train))[0].to(device)
 
@@ -579,6 +593,8 @@ def train(args_job, output_dir_job, output_dir, return_dict):
         'z_g_grad_norm':[],
         'z_e_k_grad_norm':[],
         'fid':[],
+        'fid_val':[],
+        'recon_val':[],
     }
     interval = []
 
@@ -586,7 +602,6 @@ def train(args_job, output_dir_job, output_dir, return_dict):
 
         for i, (x, y) in enumerate(dataloader_train, 0):
 
-            print(x, y)
             train_flag()
 
             x = x.to(device)
@@ -671,6 +686,8 @@ def train(args_job, output_dir_job, output_dir, return_dict):
             stats['z_e_grad_norm'].append(z_e_grad_norm.item())
             stats['z_e_k_grad_norm'].append(z_e_k_grad_norm.item())
             stats['fid'].append(fid)
+            stats['fid_val'].append(fid)
+            stats['recon_val'].append(recon_val)
             interval.append(epoch + 1)
             plot_stats(output_dir, stats, interval)
 
@@ -679,7 +696,45 @@ def train(args_job, output_dir_job, output_dir, return_dict):
             fid = get_fid(n=args.n_fid_samples)
             if fid < fid_best:
                 fid_best = fid
-            logger.info('fid={}'.format(fid))
+            logger.info('fid_val={}'.format(fid))
+
+            # evaluate the mse
+            #del x, x_hat
+            #del z_pos, z_neg, z_neg_upd
+            #del y_pos, y_neg
+
+            #e_func.eval()
+            netG.eval()
+            netE.eval()
+
+            current_step = epoch+1
+            
+            reconl  = 0
+            num     = 0
+            
+            for v_idx, (val_x_real, labels) in enumerate(dataloader_val): # iterate batches
+                #print("## Val. batch ",  v_idx*m , "/", len(test_loader.dataset))
+                n = val_x_real.shape[0]
+
+                z_g_0 = sample_p_0(n=n)
+                z_e_0 = sample_p_0(n=n)
+
+                # Langevin posterior and prior
+                z_g_k, z_g_grad_norm, z_e_grad_norm = sample_langevin_post_z(Variable(z_g_0), val_x_real.to(device), netG, netE, verbose=(i==0))
+                z_e_k, z_e_k_grad_norm = sample_langevin_prior_z(Variable(z_e_0), netE, verbose=(i==0))
+
+                # Learn generator
+                val_x_hat_real = netG(z_g_k.detach()).detach().cpu()
+
+                recon_loss = mse(val_x_hat_real, val_x_real) / (img_shape[-2]*img_shape[-1])
+                reconl  += recon_loss.detach()
+                
+                num     += n
+
+            recon_val = reconl/num
+            logger.info('recon_val={}'.format(recon_val))
+            netG.train()
+            netE.train()
 
         # Plot
         if epoch % args.n_plot == 0:
@@ -742,8 +797,8 @@ def compute_fid(args, x_data, x_samples, use_cpu=False):
     assert type(x_samples) == np.ndarray
 
     # RGB
-    assert x_data.shape[3] == 3
-    assert x_samples.shape[3] == 3
+    assert x_data.shape[3] == 1
+    assert x_samples.shape[3] == 1
 
     # NHWC
     assert x_data.shape[1] == x_data.shape[2]

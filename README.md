@@ -7,13 +7,30 @@ This code contains the implementation of EBM, LEBM, and our LSD-EBM. The perform
 
 ### Installation
 
-The virtual environment in `ve_py37_ebm.yml` is used for EBM and LEBM. 
+Create the environment with python xxx and install the bpackages required in `requirements.txt`.
 
-`conda env create -f ve_py37_ebm.yml`
 
-`python ebm_mnist.py`
+Run the EBM on 2D datasets
 
-The virtual environment in `ve_py37_lsd_ebm.yml` is used for LSD_EBM.
+```
+cd EBM
+python ebm_mnist.py
+python ebm_cifar10.py
+python ebm_celeba64.py
+python ebm_fashion_mnist.py
+
+```
+
+Run the EBM on 2D datasets
+
+```
+cd EBM
+python ebm_mnist.py
+python ebm_cifar10.py
+python ebm_celeba64.py
+python ebm_fashion_mnist.py
+
+```
 
 
 ### Usage

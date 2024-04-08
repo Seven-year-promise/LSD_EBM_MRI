@@ -26,7 +26,7 @@ import torch.utils.data as data
 import torch.optim as optim
 # Torchvision
 import torchvision
-from torchvision.datasets import CIFAR10
+from torchvision.datasets import FashionMNIST
 from torchvision import transforms
 # PyTorch Lightning
 try:
@@ -39,9 +39,9 @@ from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
 from fid_score import fid_from_samples, m_s_from_samples
 
 # Path to the folder where the datasets are/should be downloaded (e.g. CIFAR10)
-DATASET_PATH = "../data/cifar10"
+DATASET_PATH = "../data/fashion_mnist"
 # Path to the folder where the pretrained models are saved
-CHECKPOINT_PATH = "./saved_models/cifa10"
+CHECKPOINT_PATH = "./saved_models/fashion_mnist"
 
 # Setting the seed
 pl.seed_everything(42)
@@ -57,7 +57,7 @@ print("Device:", device)
 import urllib.request
 from urllib.error import HTTPError
 # Github URL where saved models are stored for this tutorial
-#base_url = "https://raw.githubusercontent.com/phlippe/saved_models/main/tutorial8/"
+# base_url = "https://raw.githubusercontent.com/phlippe/saved_models/main/tutorial8/"
 # Files to download
 pretrained_files = [] #["MNIST.ckpt", "tensorboards/events.out.tfevents.MNIST"]
 
@@ -78,18 +78,15 @@ for file_name in pretrained_files:
             print("Something went wrong. Please try to download the file from the GDrive folder, or contact the author with the full output including the following error:\n", e)
 
 # Transformations applied on each image => make them a tensor and normalize between -1 and 1
-im_ch = 3
-im_size = 28
-transform = transforms.Compose([transforms.Resize(im_size),
-                                transforms.ToTensor(),
-                                transforms.Normalize((0.5,0.5,0.5), (0.5,0.5,0.5))
+transform = transforms.Compose([transforms.Resize(32),transforms.ToTensor(),
+                                transforms.Normalize((0.5,), (0.5,))
                                ])
 
 # Loading the training dataset. We need to split it into a training and validation part
-train_set = CIFAR10(root=DATASET_PATH, train=True, transform=transform, download=True)
+train_set = FashionMNIST(root=DATASET_PATH, train=True, transform=transform, download=True)
 
 # Loading the test set
-test_set = CIFAR10(root=DATASET_PATH, train=False, transform=transform, download=True)
+test_set = FashionMNIST(root=DATASET_PATH, train=False, transform=transform, download=True)
 
 # We define a set of data loaders that we can use for various purposes later.
 # Note that for actually training a model, we will use different data loaders
@@ -115,13 +112,13 @@ class CNNModel(nn.Module):
 
         # Series of convolutions and Swish activation functions
         self.cnn_layers = nn.Sequential(
-            nn.Conv2d(im_ch, c_hid1, kernel_size=5, stride=2, padding=4),  # [16x16] - Larger padding to get 32x32 image
+            nn.Conv2d(1, c_hid1, kernel_size=4, stride=1, padding=0),  # [16x16] - Larger padding to get 32x32 image
             Swish(),
-            nn.Conv2d(c_hid1, c_hid2, kernel_size=3, stride=2, padding=1),  # [8x8]
+            nn.Conv2d(c_hid1, c_hid2, kernel_size=4, stride=2, padding=1),  # [8x8]
             Swish(),
-            nn.Conv2d(c_hid2, c_hid3, kernel_size=3, stride=2, padding=1),  # [4x4]
+            nn.Conv2d(c_hid2, c_hid3, kernel_size=4, stride=2, padding=1),  # [4x4]
             Swish(),
-            nn.Conv2d(c_hid3, c_hid3, kernel_size=3, stride=2, padding=1),  # [2x2]
+            nn.Conv2d(c_hid3, c_hid3, kernel_size=4, stride=2, padding=0),  # [2x2]
             Swish(),
             nn.Flatten(),
             nn.Linear(c_hid3 * 4, c_hid3),
@@ -266,7 +263,7 @@ class DeepEnergyModel(pl.LightningModule):
 
         # Obtain samples
         fake_imgs = self.sampler.sample_new_exmps(steps=60, step_size=10)
-
+        #print(real_imgs.size(), fake_imgs.size())
         # Predict energy score for all images
         inp_imgs = torch.cat([real_imgs, fake_imgs], dim=0)
         real_out, fake_out = self.cnn(inp_imgs).chunk(2, dim=0)
@@ -308,7 +305,7 @@ class GenerateCallback(pl.Callback):
         self.num_steps = num_steps  # Number of steps to take during generation
         self.every_n_epochs = every_n_epochs  # Only save those images every N epochs (otherwise tensorboard gets quite large)
 
-    def on_validation_epoch_end(self, trainer, pl_module):
+    def on_epoch_end(self, trainer, pl_module):
         # Skip for all other epochs
         if trainer.current_epoch % self.every_n_epochs == 0:
             # Generate images
@@ -350,7 +347,7 @@ class SamplerCallback(pl.Callback):
         self.num_imgs = num_imgs  # Number of images to plot
         self.every_n_epochs = every_n_epochs  # Only save those images every N epochs (otherwise tensorboard gets quite large)
 
-    def on_validation_epoch_end(self, trainer, pl_module):
+    def on_epoch_end(self, trainer, pl_module):
         if trainer.current_epoch % self.every_n_epochs == 0:
             exmp_imgs = torch.cat(random.choices(pl_module.sampler.examples, k=self.num_imgs), dim=0)
             grid = torchvision.utils.make_grid(exmp_imgs, nrow=4, normalize=True, range=(-1, 1))
@@ -363,7 +360,7 @@ class OutlierCallback(pl.Callback):
         super().__init__()
         self.batch_size = batch_size
 
-    def on_validation_epoch_end(self, trainer, pl_module):
+    def on_epoch_end(self, trainer, pl_module):
         with torch.no_grad():
             pl_module.eval()
             rand_imgs = torch.rand((self.batch_size,) + pl_module.hparams["img_shape"]).to(pl_module.device)
@@ -371,13 +368,13 @@ class OutlierCallback(pl.Callback):
             rand_out = pl_module.cnn(rand_imgs).mean()
             pl_module.train()
 
-        #trainer.logger.experiment.add_scalar("rand_out", rand_out, global_step=trainer.current_epoch)
+        trainer.logger.experiment.add_scalar("rand_out", rand_out, global_step=trainer.current_epoch)
 
 def train_model(**kwargs):
     # Create a PyTorch Lightning trainer with the generation callback
-    trainer = pl.Trainer(default_root_dir=os.path.join(CHECKPOINT_PATH, "CIFAR10"),
+    trainer = pl.Trainer(default_root_dir=os.path.join(CHECKPOINT_PATH, "FashionMNIST"),
                          gpus=1 if str(device).startswith("cuda") else 0,
-                         max_epochs=200,
+                         max_epochs=201,
                          gradient_clip_val=0.1,
                          callbacks=[ModelCheckpoint(save_weights_only=True, mode="min", monitor='val_contrastive_divergence'),
                                     GenerateCallback(every_n_epochs=5),
@@ -386,7 +383,8 @@ def train_model(**kwargs):
                                     LearningRateMonitor("epoch")
                                    ])
     # Check whether pretrained model exists. If yes, load it and skip training
-    pretrained_filename = os.path.join(CHECKPOINT_PATH, "CIFAR10/lightning_logs/version_666348/checkpoints/epoch=191-step=74879.ckpt")
+    pretrained_filename = os.path.join(CHECKPOINT_PATH, "FashionMNIST/lightning_logs/version_0/checkpoints/epoch=0-step=467.ckpt")
+    print(pretrained_filename)
     if os.path.isfile(pretrained_filename):
         print("Found pretrained model, loading...")
         model = DeepEnergyModel.load_from_checkpoint(pretrained_filename)
@@ -398,7 +396,8 @@ def train_model(**kwargs):
     # No testing as we are more interested in other properties
     return model
 
-model = train_model(img_shape=(im_ch, im_size,im_size),
+
+model = train_model(img_shape=(1,32,32),
                     batch_size=train_loader.batch_size,
                     lr=1e-4,
                     beta1=0.0)
@@ -418,6 +417,7 @@ callback = GenerateCallback(batch_size=4, vis_steps=8, num_steps=256)
 mseloss = nn.MSELoss(reduction='sum')
 
 img_shape = train_set[0][0].size()
+
 
 for v_idx, (val_x_real, labels) in enumerate(test_loader): # iterate batches
     #print("## Val. batch ",  v_idx*m , "/", len(test_loader.dataset))
@@ -440,12 +440,15 @@ for v_idx, (val_x_real, labels) in enumerate(test_loader): # iterate batches
 x_gen  = np.moveaxis(np.concatenate(x_gen), 1, -1)
 x_real = np.moveaxis(np.concatenate(x_real), 1, -1)
 
-print(x_gen.shape)
-
-#fid_score = fid_from_samples((x_gen*0.5+0.5)*255, (x_real*0.5+0.5)*255, True)
-#print(fid_score, reconl/num)
-
 x_gen_tensor = torch.cat(x_gen_tensor)
+
+#print(x_gen_tensor.shape)
+
+fid_score = fid_from_samples((x_gen*0.5+0.5)*255, (x_real*0.5+0.5)*255, True)
+print(fid_score, reconl/num)
+
+
+
 chosen_gen = x_gen_tensor[np.random.choice(x_gen.shape[0], 64), :, :, :]
 print(chosen_gen.shape)
 #print("haha")
@@ -462,3 +465,15 @@ def plot(p, x):
     return torchvision.utils.save_image(torch.clamp(x, -1., 1.), p, normalize=True, nrow=8)
 
 plot(CHECKPOINT_PATH+"/samples.png", chosen_gen)
+"""
+grid = torchvision.utils.make_grid(chosen_gen, nrow=8, normalize=True, range=(-1,1), pad_value=0.5, padding=2)
+grid = grid.permute(1, 2, 0).cpu()
+print(grid)
+plt.figure(figsize=(8,8))
+plt.imshow(grid)
+plt.xlabel("Generation iteration")
+#plt.xticks([(chosen_gen.shape[-1]+2)*(0.5+j) for j in range(8)],
+#            labels=[1] + list(range(8)))
+#plt.yticks([])
+plt.savefig(CHECKPOINT_PATH+"/samples.png", format='png') 
+"""

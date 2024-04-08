@@ -20,11 +20,11 @@ device = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("
 print("Device set to: ", device)
 
 ### Parameters ###
-seed_all = 798234
-dataset = "MNIST"     # MNIST, CIFAR10, CelebA64, CelebA128
+seed_all = 759948# 798234
+dataset = "FashionMNIST"     # MNIST, CIFAR10, CelebA64, CelebA128
 
 #main_path = "./"        # Target dir for all outputs (model-files, tsb-files, ...)
-main_path = "./MNIST/" 
+main_path = "./FashionMNIST/" 
 DEBUG = False           # If debug information should be printed
 
 latent_dim  = 100       # Size of latent-vectors
@@ -105,13 +105,13 @@ transform = transforms.Compose(
     [transforms.ToTensor(),
      transforms.Normalize((0.), (1.))])
 
-if dataset == "MNIST":
-    print("Load MNIST dataset.")
-    train_dataset = torchvision.datasets.MNIST(root=main_path,
+if dataset == "FashionMNIST":
+    print("Load FashionMNIST dataset.")
+    train_dataset = torchvision.datasets.FashionMNIST(root=main_path,
                                            train=True,
                                            transform=transform,
                                            download=True)
-    test_dataset = torchvision.datasets.MNIST(root=main_path,
+    test_dataset = torchvision.datasets.FashionMNIST(root=main_path,
                                           train=False,
                                           transform=transform)
     channels = 1

@@ -21,15 +21,15 @@ print("Device set to: ", device)
 
 ### Parameters ###
 seed_all = 798234
-dataset = "MNIST"     # MNIST, CIFAR10, CelebA64, CelebA128
+dataset = "FashionMNIST"     # MNIST, CIFAR10, CelebA64, CelebA128
 
 #main_path = "./"        # Target dir for all outputs (model-files, tsb-files, ...)
-main_path = "./MNIST/" 
+main_path = "./FashionMNIST/" 
 DEBUG = False           # If debug information should be printed
 
 latent_dim  = 100       # Size of latent-vectors
 m           = 128       # Batch-size
-epochs      = 200       # Number of epochs to train model
+epochs      = 201       # Number of epochs to train model
 use_buffer  = False     # If a sample-buffer should be used for sampling
 loss_reg    = 0.        # Regularizing term in loss (0 = No regularization)
 batchnorm   = True      # If batch normalization is applied
@@ -58,7 +58,7 @@ a_s_prev[-1] = 1
 
 # Print to console
 print("### Parameter choice ###")
-print(f"""dataset       = {dataset}, (MNIST, CIFAR10, CelebA64, CelebA128)""")
+print(f"""dataset       = {dataset}, (FashionMNIST, MNIST, CIFAR10, CelebA64, CelebA128)""")
 print(f"""seed_all      = {seed_all}""")
 print(f"""main_path     = {main_path}, Target dir for all outputs (model-files, tsb-files, ...)""")
 print(f"""DEBUG         = {DEBUG} ,If debug information should be printed""")
@@ -79,6 +79,11 @@ print(f"""beta start    = {beta_start}, Diffusion schedule""")
 print(f"""beta end      = {beta_end}, Diffusion schedule""")
 print("########################")
 ##################
+
+if tsb_tracking:
+    ### Tensorboard import and set-up
+    from torch.utils.tensorboard import SummaryWriter
+    writer = SummaryWriter(main_path+'tsb_runs/')
 
 ### Seeding
 """
@@ -102,16 +107,17 @@ g = torch.Generator()
 g.manual_seed(seed_all)
 
 transform = transforms.Compose(
-    [transforms.ToTensor(),
+    [transforms.Resize(32),
+     transforms.ToTensor(),
      transforms.Normalize((0.), (1.))])
 
-if dataset == "MNIST":
-    print("Load MNIST dataset.")
-    train_dataset = torchvision.datasets.MNIST(root=main_path,
+if dataset == "FashionMNIST":
+    print("Load FashionMNIST dataset.")
+    train_dataset = torchvision.datasets.FashionMNIST(root=main_path,
                                            train=True,
                                            transform=transform,
                                            download=True)
-    test_dataset = torchvision.datasets.MNIST(root=main_path,
+    test_dataset = torchvision.datasets.FashionMNIST(root=main_path,
                                           train=False,
                                           transform=transform)
     channels = 1
@@ -716,12 +722,12 @@ def load_model(model, path):
 e_func = E_func(latent_dim).to(device)
 gen_model = GenModel(latent_dim).to(device)
 inf_model = InfModel(latent_dim).to(device)
-pre_run_epochs = 200
+pre_run_epochs = 0
 
 # LOAD PREVIOUS STATS OF MODEL
-load_model(e_func,    main_path + "e_func_ep"    + str(pre_run_epochs))
-load_model(gen_model, main_path + "gen_model_ep" + str(pre_run_epochs))
-load_model(inf_model, main_path + "inf_model_ep" + str(pre_run_epochs))
+#load_model(e_func,    main_path + "e_func_ep"    + str(pre_run_epochs))
+#load_model(gen_model, main_path + "gen_model_ep" + str(pre_run_epochs))
+#load_model(inf_model, main_path + "inf_model_ep" + str(pre_run_epochs))
 
 e_lr = 0.0001
 g_lr = 0.0001
@@ -735,117 +741,281 @@ g_beta1 = 0.5
 g_beta2 = 0.999
 i_beta1 = 0.5
 i_beta2 = 0.999
-#optE = torch.optim.Adam(e_func.parameters(),    lr=e_lr, weight_decay=e_decay, betas=(e_beta1, e_beta2))
-#optG = torch.optim.Adam(gen_model.parameters(), lr=g_lr, weight_decay=g_decay, betas=(g_beta1, g_beta2))
-#optI = torch.optim.Adam(inf_model.parameters(), lr=i_lr, weight_decay=i_decay, betas=(i_beta1, i_beta2))
+optE = torch.optim.Adam(e_func.parameters(),    lr=e_lr, weight_decay=e_decay, betas=(e_beta1, e_beta2))
+optG = torch.optim.Adam(gen_model.parameters(), lr=g_lr, weight_decay=g_decay, betas=(g_beta1, g_beta2))
+optI = torch.optim.Adam(inf_model.parameters(), lr=i_lr, weight_decay=i_decay, betas=(i_beta1, i_beta2))
 
 print("model E located on: ", next(e_func.parameters()).device)
 print("model G located on: ", next(gen_model.parameters()).device)
 print("model I located on: ", next(inf_model.parameters()).device)
 
 ### Training the model
-e_func.eval()
-gen_model.eval()
-inf_model.eval()
+e_func.train()
+gen_model.train()
+inf_model.train()
+n_total_steps = len(train_loader)*m
 
+for epoch in range(pre_run_epochs, epochs): # iterate epochs
+    testset_it = iter(test_loader)
 
-## 3.1 Validation (scores)
-    
-x_real  = []
-x_gen   = []
-x_gen_tensor   = []
-reconl  = 0
-reconl1 = 0
-reconl2 = 0
-reconl3 = 0
-reconl4 = 0
-reconl5 = 0
-reconl6 = 0
-en_pos  = 0
-en_neg  = 0
-en_noi  = 0
-num     = 0
+    for b_idx, (x, labels) in enumerate(train_loader): # iterate batches
+        print("# Ep. ", epoch+1, "/", epochs, ": ", b_idx*m , "/", len(train_loader.dataset))
+        ## 0. Prepare
+        x = x.to(device)
+        b_size = labels.size()[0] # bc last batch might have diff. nr of samples
+        if b_size != m: print("Special batch: Only "+str(b_size)+" samples.")
 
-for v_idx, (val_x_real, labels) in enumerate(test_loader): # iterate batches
-    #print("## Val. batch ",  v_idx*m , "/", len(test_loader.dataset))
-    n = val_x_real.shape[0]
-    val_z_real, _, _ = inf_model.forward(val_x_real.to(device))
-    val_z_noise      = torch.randn(val_z_real.size()).to(device)
-    val_z_fake       = p_sample_progressive(val_z_noise, e_func)
+        ## 1. Sample x starting from x0
+        z_inf, mu, logvar = inf_model.forward(x)
 
-    val_z_diff_1     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 2).detach()
-    val_z_diff_2     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 4).detach()
-    val_z_diff_3     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 6).detach()
-    val_z_diff_4     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 8).detach()
-    val_z_diff_5     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 10).detach()
-    val_z_diff_6     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 12).detach()
+        # for how many steps to diffuse (per latent vector)
+        t = nprandom.randint(0, high=diff_timesteps, size=b_size)
+        t = torch.tensor(t, dtype=int).to(device)
+        # print("t ", t.size())
 
-    val_z_recon_1    = p_sample_progressive(val_z_diff_1, e_func, 2)[0, :, :]
-    val_x_recon_1    = gen_model(val_z_recon_1.view(-1, latent_dim, 1, 1).float()).detach().cpu()
-    del val_z_recon_1, val_z_diff_1
-    val_z_recon_2    = p_sample_progressive(val_z_diff_2, e_func, 4)[0, :, :]
-    val_x_recon_2    = gen_model(val_z_recon_2.view(-1, latent_dim, 1, 1).float()).detach().cpu()
-    del val_z_recon_2, val_z_diff_2
-    val_z_recon_3    = p_sample_progressive(val_z_diff_3, e_func, 6)[0, :, :]
-    val_x_recon_3    = gen_model(val_z_recon_3.view(-1, latent_dim, 1, 1).float()).detach().cpu()
-    del val_z_recon_3, val_z_diff_3
-    val_z_recon_4    = p_sample_progressive(val_z_diff_4, e_func, 8)[0, :, :]
-    val_x_recon_4    = gen_model(val_z_recon_4.view(-1, latent_dim, 1, 1).float()).detach().cpu()
-    del val_z_recon_4, val_z_diff_4
-    val_z_recon_5    = p_sample_progressive(val_z_diff_5, e_func, 10)[0, :, :]
-    val_x_recon_5    = gen_model(val_z_recon_5.view(-1, latent_dim, 1, 1).float()).detach().cpu()
-    del val_z_recon_5, val_z_diff_5
-    val_z_recon_6    = p_sample_progressive(val_z_diff_6, e_func, 12)[0, :, :]
-    val_x_recon_6    = gen_model(val_z_recon_6.view(-1, latent_dim, 1, 1).float()).detach().cpu()
-    del val_z_recon_6, val_z_diff_6
-    
-    val_x_hat_real   = gen_model(val_z_real.view(-1, latent_dim, 1, 1)).detach().cpu()
-    val_x_hat_fake   = gen_model(val_z_fake[0, :, :].view(-1, latent_dim, 1, 1)).detach().cpu()
-    # print("val_z_real ", val_z_real.size())
-    # print("val_z_real ", val_z_fake.size())
-    # print("val_x_hat_fake ", val_x_hat_fake.size())
+        # z_pos diffused for t steps, z_neg for one additional step (noise(z_neg)>noise(z_pos))
+        z_pos, z_neg = q_sample_pairs(z_inf.detach().clone().view(-1, latent_dim), t)
+        # print("z_pos ", z_pos.size())
+        # print("z_neg" ,z_neg.size())
 
-    recon_loss       = mseloss(val_x_hat_real, val_x_real) / (img_shape[-2]*img_shape[-1])
-    recon_loss_1     = mseloss(val_x_recon_1, val_x_real) / (img_shape[-2]*img_shape[-1])
-    recon_loss_2     = mseloss(val_x_recon_2, val_x_real) / (img_shape[-2]*img_shape[-1])
-    recon_loss_3     = mseloss(val_x_recon_3, val_x_real) / (img_shape[-2]*img_shape[-1])
-    recon_loss_4     = mseloss(val_x_recon_4, val_x_real) / (img_shape[-2]*img_shape[-1])
-    recon_loss_5     = mseloss(val_x_recon_5, val_x_real) / (img_shape[-2]*img_shape[-1])
-    recon_loss_6     = mseloss(val_x_recon_6, val_x_real) / (img_shape[-2]*img_shape[-1])
-    
-    x_real  += [val_x_real.detach()]
-    x_gen   += [val_x_hat_fake.detach()]
-    x_gen_tensor   += [val_x_hat_fake]
-    reconl  += recon_loss.detach()
-    reconl1 += recon_loss_1.detach()
-    reconl2 += recon_loss_2.detach()
-    reconl3 += recon_loss_3.detach()
-    reconl4 += recon_loss_4.detach()
-    reconl5 += recon_loss_5.detach()
-    reconl6 += recon_loss_5.detach()
-    num     += n
+        # update z_neg, try to recreate z_pos from z_neg via conditional MCMC sample
+        z_neg_upd = sample_langevin_cond_z(z_neg.detach().clone(), t, e_func)
+        # print("z_neg_upd" ,z_neg.size())
 
-    if num > 100:
-        break
+        # if (b_idx) % 10 == 0:
+        #   print("E z_pos", e_func(z_pos.detach().float(), t).mean())
+        #   print("E z_neg", e_func(z_neg.detach().float(), t).mean())
+        #   print("E z_neg_upd", e_func(z_neg_upd.detach().float(), t).mean())
+        #   tmp_x_pos = gen_model.forward(z_pos.view(-1, latent_dim, 1, 1).float())
+        #   tmp_x_neg = gen_model.forward(z_neg.view(-1, latent_dim, 1, 1).float())
+        #   tmp_x_neg_upd = gen_model.forward(z_neg_upd.view(-1, latent_dim, 1, 1).float())
+        #   for it in range(2):
+        #     plt.subplot(2, 3, 1+it*3)
+        #     plt.imshow(np.moveaxis(tmp_x_pos[it,: ,: ,:].cpu().detach().numpy(), 0, -1))
+        #     plt.subplot(2, 3, 2+it*3)
+        #     plt.imshow(np.moveaxis(tmp_x_neg[it,: ,: ,:].cpu().detach().numpy(), 0, -1))
+        #     plt.subplot(2, 3, 3+it*3)
+        #     plt.imshow(np.moveaxis(tmp_x_neg_upd[it,: ,: ,:].cpu().detach().numpy(), 0, -1))
+        #   plt.show()
 
-x_gen  = np.moveaxis(np.concatenate(x_gen), 1, -1)
-x_real = np.moveaxis(np.concatenate(x_real), 1, -1)
+        a_s_tmp = extract(torch.tensor(a_s_prev).to(device), t + 1, z_pos.size())
+        y_pos = a_s_tmp * z_pos # adjust
+        y_neg = a_s_tmp * z_neg_upd # adjust
+        en_pos = e_func(y_pos.detach().float(), t)
+        en_neg = e_func(y_neg.detach().float(), t)
 
+        # loss_e = - (en_pos - en_neg)
+        loss_e = (en_pos - en_neg)
+        loss_scale = 1.0 / (torch.gather(torch.tensor(sigmas).to(device), 0, t + 1) / sigmas[1])
+        scaled_loss_e = (loss_e*loss_scale).mean()
+        loss_e = loss_e.mean()
 
-x_gen_tensor = torch.cat(x_gen_tensor)
-chosen_gen = x_gen_tensor[np.random.choice(x_gen.shape[0], 64), :, :, :]
-print(chosen_gen.shape)
-#print("haha")
-"""
-s = imgs_per_step.shape[1][-1]
+        x_hat = gen_model.forward(z_inf.view(-1,latent_dim, 1, 1))
 
-#step_size = callback.num_steps // callback.vis_steps
-imgs_to_plot = imgs_per_step[step_size-1::step_size,s]
-imgs_to_plot = torch.cat([imgs_per_step[0:1,s],imgs_to_plot], dim=0)
-grid = torchvision.utils.make_grid(imgs_to_plot, nrow=imgs_to_plot.shape[0], normalize=True, range=(-1,1), pad_value=0.5, padding=2)
-grid = grid.permute(1, 2, 0)
-"""
-def plot(p, x):
-    return torchvision.utils.save_image(torch.clamp(x, -1., 1.), p, normalize=True, nrow=8)
+        # if (b_idx) % 10 == 0:
+        #   for it in range(2):
+        #     plt.subplot(2, 2, 1+it*2)
+        #     plt.imshow(np.moveaxis(x[it,: ,: ,:].cpu().detach().numpy(), 0, -1))
+        #     plt.subplot(2, 2, 2+it*2)
+        #     plt.imshow(np.moveaxis(x_hat[it,: ,: ,:].cpu().detach().numpy(), 0, -1))
+        #   plt.show()
 
-plot(main_path+"/samples.png", chosen_gen)
+        #loss_recon = mseloss(x_hat, x) / b_size
+        #loss_recon = (mseloss(x_hat, x) + 0.5*(-logvar + torch.exp(logvar) + mu).sum())/ b_size
+        loss_recon = (mseloss(x_hat, x) + (logvar + 0.5*((z_inf-mu)/torch.exp(logvar))**2).sum())/ b_size
+
+        # print("Loss e: ", loss_e.data)
+        # print("Loss e scaled: ", scaled_loss_e.data)
+        # print("Loss recon: ", loss_recon.data)
+
+        ## 2.1 Learn generator and inference
+        optG.zero_grad()
+        optI.zero_grad()
+        loss_recon.backward()
+        optG.step()
+        optI.step()
+
+        ## 2.2 Learn energy
+        optE.zero_grad()
+        scaled_loss_e.backward()
+        optE.step()
+
+        # if (b_idx) % 10 == 0:
+        #   noise_tmp = torch.randn(z_pos.size()).to(device)
+        #   tmp_z = p_sample_progressive(noise_tmp, e_func)
+        #   for kit in range(3):
+        #     tmp_x_sample = gen_model.forward(tmp_z[:, kit, :].view(-1, latent_dim, 1, 1).float())
+        #     for it in range(7):
+        #       plt.subplot(3, 7, kit*7 + it+1)
+        #       plt.imshow(np.moveaxis(tmp_x_sample[it, : ,: ,:].cpu().detach().numpy(), 0, -1))
+        #   plt.show()
+
+    ## 3.1 Validation (scores)
+    if (eval_every is not None) & ((epoch+1)%eval_every==0):
+        del x, x_hat
+        del z_pos, z_neg, z_neg_upd
+        del y_pos, y_neg
+
+        e_func.eval()
+        gen_model.eval()
+        inf_model.eval()
+
+        current_step = epoch+1
+        
+        x_real  = []
+        x_gen   = []
+        reconl  = 0
+        reconl1 = 0
+        reconl2 = 0
+        reconl3 = 0
+        reconl4 = 0
+        reconl5 = 0
+        reconl6 = 0
+        en_pos  = 0
+        en_neg  = 0
+        en_noi  = 0
+        num     = 0
+        
+        for v_idx, (val_x_real, labels) in enumerate(test_loader): # iterate batches
+            #print("## Val. batch ",  v_idx*m , "/", len(test_loader.dataset))
+            n = val_x_real.shape[0]
+            val_z_real, _, _ = inf_model.forward(val_x_real.to(device))
+            val_z_noise      = torch.randn(val_z_real.size()).to(device)
+            val_z_fake       = p_sample_progressive(val_z_noise, e_func)
+
+            val_z_diff_1     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 2).detach()
+            val_z_diff_2     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 4).detach()
+            val_z_diff_3     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 6).detach()
+            val_z_diff_4     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 8).detach()
+            val_z_diff_5     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 10).detach()
+            val_z_diff_6     = q_sample(val_z_real, torch.ones(n, dtype=int).to(device) * 12).detach()
+
+            val_z_recon_1    = p_sample_progressive(val_z_diff_1, e_func, 2)[0, :, :]
+            val_x_recon_1    = gen_model(val_z_recon_1.view(-1, latent_dim, 1, 1).float()).detach().cpu()
+            del val_z_recon_1, val_z_diff_1
+            val_z_recon_2    = p_sample_progressive(val_z_diff_2, e_func, 4)[0, :, :]
+            val_x_recon_2    = gen_model(val_z_recon_2.view(-1, latent_dim, 1, 1).float()).detach().cpu()
+            del val_z_recon_2, val_z_diff_2
+            val_z_recon_3    = p_sample_progressive(val_z_diff_3, e_func, 6)[0, :, :]
+            val_x_recon_3    = gen_model(val_z_recon_3.view(-1, latent_dim, 1, 1).float()).detach().cpu()
+            del val_z_recon_3, val_z_diff_3
+            val_z_recon_4    = p_sample_progressive(val_z_diff_4, e_func, 8)[0, :, :]
+            val_x_recon_4    = gen_model(val_z_recon_4.view(-1, latent_dim, 1, 1).float()).detach().cpu()
+            del val_z_recon_4, val_z_diff_4
+            val_z_recon_5    = p_sample_progressive(val_z_diff_5, e_func, 10)[0, :, :]
+            val_x_recon_5    = gen_model(val_z_recon_5.view(-1, latent_dim, 1, 1).float()).detach().cpu()
+            del val_z_recon_5, val_z_diff_5
+            val_z_recon_6    = p_sample_progressive(val_z_diff_6, e_func, 12)[0, :, :]
+            val_x_recon_6    = gen_model(val_z_recon_6.view(-1, latent_dim, 1, 1).float()).detach().cpu()
+            del val_z_recon_6, val_z_diff_6
+            
+            val_x_hat_real   = gen_model(val_z_real.view(-1, latent_dim, 1, 1)).detach().cpu()
+            val_x_hat_fake   = gen_model(val_z_fake[0, :, :].view(-1, latent_dim, 1, 1)).detach().cpu()
+            # print("val_z_real ", val_z_real.size())
+            # print("val_z_real ", val_z_fake.size())
+            # print("val_x_hat_fake ", val_x_hat_fake.size())
+
+            recon_loss       = mseloss(val_x_hat_real, val_x_real) / (img_shape[-2]*img_shape[-1])
+            recon_loss_1     = mseloss(val_x_recon_1, val_x_real) / (img_shape[-2]*img_shape[-1])
+            recon_loss_2     = mseloss(val_x_recon_2, val_x_real) / (img_shape[-2]*img_shape[-1])
+            recon_loss_3     = mseloss(val_x_recon_3, val_x_real) / (img_shape[-2]*img_shape[-1])
+            recon_loss_4     = mseloss(val_x_recon_4, val_x_real) / (img_shape[-2]*img_shape[-1])
+            recon_loss_5     = mseloss(val_x_recon_5, val_x_real) / (img_shape[-2]*img_shape[-1])
+            recon_loss_6     = mseloss(val_x_recon_6, val_x_real) / (img_shape[-2]*img_shape[-1])
+            
+            x_real  += [val_x_real.detach()]
+            x_gen   += [val_x_hat_fake.detach()]
+            reconl  += recon_loss.detach()
+            reconl1 += recon_loss_1.detach()
+            reconl2 += recon_loss_2.detach()
+            reconl3 += recon_loss_3.detach()
+            reconl4 += recon_loss_4.detach()
+            reconl5 += recon_loss_5.detach()
+            reconl6 += recon_loss_5.detach()
+            num     += n
+        
+        x_gen  = np.moveaxis(np.concatenate(x_gen), 1, -1)
+        x_real = np.moveaxis(np.concatenate(x_real), 1, -1)
+        val_x_steps = gen_model(val_z_fake[:, 0, :].view(-1, latent_dim, 1, 1)).detach().cpu()
+        
+        try:
+            fid_score = fid_from_samples((x_gen*0.5+0.5)*255, (x_real*0.5+0.5)*255, init_fid)
+            init_fid = False
+        except ValueError:
+            print("FID CALCULATION FAILED")
+            fid_score = None
+
+        # Tensorboard
+        if tsb_tracking:
+            writer.add_scalar('Loss reconstr.',     reconl/num,         current_step)
+            writer.add_scalar('FID score.',         fid_score,          current_step)
+            writer.add_scalar('Loss reconstr. 1',   reconl1/num,        current_step)
+            writer.add_scalar('Loss reconstr. 2',   reconl2/num,        current_step)
+            writer.add_scalar('Loss reconstr. 3',   reconl3/num,        current_step)
+            writer.add_scalar('Loss reconstr. 4',   reconl4/num,        current_step)
+            writer.add_scalar('Loss reconstr. 5',   reconl5/num,        current_step)
+            writer.add_scalar('Loss reconstr. 6',   reconl6/num,        current_step)
+
+        # Console output
+        print('##### Loss reconstr.',   reconl/num)
+        print('##### FID score',        fid_score)
+        print('##### Loss reconstr. 1', reconl1/num)
+        print('##### Loss reconstr. 2', reconl2/num)
+        print('##### Loss reconstr. 3', reconl3/num)
+        print('##### Loss reconstr. 4', reconl4/num)
+        print('##### Loss reconstr. 5', reconl5/num)
+        print('##### Loss reconstr. 6', reconl6/num)
+        e_func.train()
+        gen_model.train()
+        inf_model.train()
+
+        ## 3.2 Validation (example images)
+        # ... of generation reverse process
+        if tsb_tracking: writer.add_images('gen_reverse', val_x_steps, current_step)
+        n_bw = val_x_steps.size()[0]
+        if live_plotting:
+            for imgidx in range(n_bw):
+                plt.subplot(1, n_bw, imgidx+1)
+                plt.imshow(np.moveaxis(val_x_steps[imgidx,:,:,:].numpy(), 0, -1))
+            plt.show()
+        
+        # ... of generation multiple imgs
+        if tsb_tracking: writer.add_images('gen_imgs', val_x_hat_fake[:5,:,:,:], current_step)
+        if live_plotting:
+            for imgidx in range(5):
+                plt.subplot(1, 5, imgidx+1)
+                plt.imshow(np.moveaxis(val_x_hat_fake[imgidx,:,:,:].numpy(), 0, -1))
+            plt.show()
+
+        # ... of reconstruction
+        if tsb_tracking: writer.add_images('recon_imgs'    , torch.cat((val_x_real[:2,:,:,:], val_x_hat_real[:2,:,:,:]), dim=0), current_step)
+        if tsb_tracking: writer.add_images('recon_imgs_1'  , torch.cat((val_x_real[:2,:,:,:], val_x_recon_1[:2,:,:,:]), dim=0), current_step)
+        if tsb_tracking: writer.add_images('recon_imgs_2'  , torch.cat((val_x_real[:2,:,:,:], val_x_recon_2[:2,:,:,:]), dim=0), current_step)
+        if tsb_tracking: writer.add_images('recon_imgs_3'  , torch.cat((val_x_real[:2,:,:,:], val_x_recon_3[:2,:,:,:]), dim=0), current_step)
+        if tsb_tracking: writer.add_images('recon_imgs_4'  , torch.cat((val_x_real[:2,:,:,:], val_x_recon_4[:2,:,:,:]), dim=0), current_step)
+        if tsb_tracking: writer.add_images('recon_imgs_5'  , torch.cat((val_x_real[:2,:,:,:], val_x_recon_5[:2,:,:,:]), dim=0), current_step)
+        if tsb_tracking: writer.add_images('recon_imgs_6'  , torch.cat((val_x_real[:2,:,:,:], val_x_recon_6[:2,:,:,:]), dim=0), current_step)
+        if live_plotting:
+            for imgidx in range(2):
+                plt.subplot(2, 2, 2*imgidx+1)
+                plt.imshow(np.moveaxis(val_x_real[imgidx,:,:,:].numpy(), 0, -1))
+                plt.subplot(2, 2, 2*imgidx+2)
+                plt.imshow(np.moveaxis(val_x_hat_real[imgidx,:,:,:].numpy(), 0, -1))
+            plt.show()
+
+        # ... of diffusion
+        z_diff = q_sample_progressive(val_z_real[0, :].view(-1, latent_dim).float())
+        x_diff = gen_model(z_diff.view(-1, latent_dim, 1, 1).float())
+        if tsb_tracking: writer.add_images('diff_imgs', x_diff, current_step)
+        n_bw = x_diff.size()[0]
+        if live_plotting:
+            for imgidx in range(n_bw):
+                plt.subplot(1, n_bw, imgidx+1)
+                plt.imshow(np.moveaxis(x_diff[imgidx,:,:,:].numpy(), 0, -1))
+            plt.show()
+
+    ### 4. Save model
+    if store_every!=None and (epoch+1)%store_every==0:
+        save_model(e_func,    main_path + "e_func_ep"   +str(epoch+1))
+        save_model(gen_model, main_path + "gen_model_ep"+str(epoch+1))
+        save_model(inf_model, main_path + "inf_model_ep"+str(epoch+1))

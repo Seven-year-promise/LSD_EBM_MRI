@@ -374,7 +374,7 @@ def train_model(**kwargs):
     # Create a PyTorch Lightning trainer with the generation callback
     trainer = pl.Trainer(default_root_dir=os.path.join(CHECKPOINT_PATH, "MNIST"),
                          gpus=1 if str(device).startswith("cuda") else 0,
-                         max_epochs=2, #200,
+                         max_epochs=200,
                          gradient_clip_val=0.1,
                          callbacks=[ModelCheckpoint(save_weights_only=True, mode="min", monitor='val_contrastive_divergence'),
                                     GenerateCallback(every_n_epochs=5),
@@ -383,7 +383,8 @@ def train_model(**kwargs):
                                     LearningRateMonitor("epoch")
                                    ])
     # Check whether pretrained model exists. If yes, load it and skip training
-    pretrained_filename = os.path.join(CHECKPOINT_PATH, "MNIST.ckpt")
+    pretrained_filename = os.path.join(CHECKPOINT_PATH, "MNIST/lightning_logs/version_0/checkpoints/epoch=0-step=467.ckpt")
+    print(pretrained_filename)
     if os.path.isfile(pretrained_filename):
         print("Found pretrained model, loading...")
         model = DeepEnergyModel.load_from_checkpoint(pretrained_filename)
@@ -394,6 +395,7 @@ def train_model(**kwargs):
         model = DeepEnergyModel.load_from_checkpoint(trainer.checkpoint_callback.best_model_path)
     # No testing as we are more interested in other properties
     return model
+
 
 model = train_model(img_shape=(1,28,28),
                     batch_size=train_loader.batch_size,
@@ -407,6 +409,7 @@ pl.seed_everything(43)
 
 x_real  = []
 x_gen   = []
+x_gen_tensor = []
 reconl  = 0
 num     = 0
 
@@ -414,6 +417,7 @@ callback = GenerateCallback(batch_size=4, vis_steps=8, num_steps=256)
 mseloss = nn.MSELoss(reduction='sum')
 
 img_shape = train_set[0][0].size()
+
 
 for v_idx, (val_x_real, labels) in enumerate(test_loader): # iterate batches
     #print("## Val. batch ",  v_idx*m , "/", len(test_loader.dataset))
@@ -426,6 +430,7 @@ for v_idx, (val_x_real, labels) in enumerate(test_loader): # iterate batches
     imgs_per_step = callback.generate_imgs(model)
     recon_x_per_step = callback.reconstruct_imgs(model, val_x_real.to(device))
     x_gen   += [imgs_per_step[-1].cpu().detach()]
+    x_gen_tensor += [imgs_per_step[-1]]
 
     recon_loss       = mseloss(recon_x_per_step[-1], val_x_real.to(device)) / (img_shape[-2]*img_shape[-1])
     reconl  += recon_loss.detach()
@@ -435,17 +440,18 @@ for v_idx, (val_x_real, labels) in enumerate(test_loader): # iterate batches
 x_gen  = np.moveaxis(np.concatenate(x_gen), 1, -1)
 x_real = np.moveaxis(np.concatenate(x_real), 1, -1)
 
-print(x_gen.shape)
+x_gen_tensor = torch.cat(x_gen_tensor)
+
+#print(x_gen_tensor.shape)
 
 fid_score = fid_from_samples((x_gen*0.5+0.5)*255, (x_real*0.5+0.5)*255, True)
 print(fid_score, reconl/num)
 
-imgs_per_step = imgs_per_step.cpu()
 
-x_gen = x_gen.cpu()
 
-chosen_gen = x_gen[np.random.choice(x_gen.shape[0], 64), :, :, :]
-print(x_gen.size())
+chosen_gen = x_gen_tensor[np.random.choice(x_gen.shape[0], 64), :, :, :]
+print(chosen_gen.shape)
+#print("haha")
 """
 s = imgs_per_step.shape[1][-1]
 
@@ -455,12 +461,19 @@ imgs_to_plot = torch.cat([imgs_per_step[0:1,s],imgs_to_plot], dim=0)
 grid = torchvision.utils.make_grid(imgs_to_plot, nrow=imgs_to_plot.shape[0], normalize=True, range=(-1,1), pad_value=0.5, padding=2)
 grid = grid.permute(1, 2, 0)
 """
-grid = torchvision.utils.make_grid(chosen_gen, nrow=chosen_gen.shape[0], normalize=True, range=(-1,1), pad_value=0.5, padding=2)
-grid = grid.permute(1, 2, 0)
+def plot(p, x):
+    return torchvision.utils.save_image(torch.clamp(x, -1., 1.), p, normalize=True, nrow=8)
+
+plot(CHECKPOINT_PATH+"/samples.png", chosen_gen)
+"""
+grid = torchvision.utils.make_grid(chosen_gen, nrow=8, normalize=True, range=(-1,1), pad_value=0.5, padding=2)
+grid = grid.permute(1, 2, 0).cpu()
+print(grid)
 plt.figure(figsize=(8,8))
 plt.imshow(grid)
 plt.xlabel("Generation iteration")
-plt.xticks([(chosen_gen.shape[-1]+2)*(0.5+j) for j in range(8)],
-            labels=[1] + list(range(8)))
-plt.yticks([])
+#plt.xticks([(chosen_gen.shape[-1]+2)*(0.5+j) for j in range(8)],
+#            labels=[1] + list(range(8)))
+#plt.yticks([])
 plt.savefig(CHECKPOINT_PATH+"/samples.png", format='png') 
+"""
