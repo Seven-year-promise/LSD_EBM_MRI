@@ -7,10 +7,18 @@ This code contains the implementation of EBM, LEBM, and our LSD-EBM. The perform
 
 ### Installation
 
-Create the environment with python xxx and install the bpackages required in `requirements.txt`.
+Create the environment with python 3.7 and install the bpackages required in `requirements.txt`.
 
 
-Run the EBM on 2D datasets
+### Run the codes
+
+#### 1. Run the codes on 2D datasets
+
+```
+cd 2D
+```
+
+Run the EBM on 2D datasets and the FID scores as well as geberated samples are generated automatically.
 
 ```
 cd EBM
@@ -18,25 +26,82 @@ python ebm_mnist.py
 python ebm_cifar10.py
 python ebm_celeba64.py
 python ebm_fashion_mnist.py
-
 ```
 
-Run the EBM on 2D datasets
+Run the LEBM on 2D datasets and the FID scores as well as geberated samples are generated automatically.
 
 ```
-cd EBM
-python ebm_mnist.py
-python ebm_cifar10.py
-python ebm_celeba64.py
-python ebm_fashion_mnist.py
-
+cd LEBM
+python train_mnist.py
+python train_cifar10.py
+python train_celeba64.py
+python train_fashion_mnist.py
 ```
 
+Run the LSD-EBM on 2D datasets
 
-### Usage
+```
+cd LSD-EBM
+python LDEBM_Datasets_NEW_CelebA.py
+python LDEBM_Datasets_NEW_CIFAR10.py
+python LDEBM_Datasets_NEW_Fashion_MNIST.py
+python LDEBM_Datasets_NEW_MNIST.py
+```
+
+To generate the FID scores and geberated samples for LSD-EBM, run
+
+```
+cd LSD-EBM
+python LDEBM_Datasets_NEW_CelebA_Inference.py
+python LDEBM_Datasets_NEW_CIFAR10_Inference.py
+python LDEBM_Datasets_NEW_FashionMNIST_Inference.py
+python LDEBM_Datasets_NEW_MNIST_Inference.py
+```
+
+#### 2. Run the codes on 3D datasets
+
+```
+cd 3D/LSD-EBM/LSD-EBM_code
+```
+
+Run the VAE on 3D datasets
+
+```
+main_VAE_Vert_01.py
+```
+
+Run the LEBM on 3D datasets
+
+```
+python main_LEBM_Vert_04.py
+```
+
+Run the LSD-EBM on 3D datasets
+
+```
+python main_LSDEBM_Vert_01.py
+```
+
+### Analysis
 
 
+#### 1. Compare the results of different steps of LSD-EBM
 
+```
+python compare_steps_lsd_ebm.py
+```
+
+#### 2. Compare the latents of LSD-EBM and LEBM
+
+```
+python compare_latent_lsdebm_ddpm.py
+```
+
+#### 3. Generate the reconstruction metrics used in the paper
+
+```
+python reconstruction_metrics.py
+```
 
 ### Citing our work
 
