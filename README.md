@@ -1,4 +1,4 @@
-## A high-resolution MRI vertebrae reconstruction pipeline (GeMRI) 
+## Energy-Based Prior Latent Space Diffusion model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI (LSD-EBM)
 
 ### Introduction
 
