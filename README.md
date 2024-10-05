@@ -8,9 +8,9 @@ Our work is accepted by 4th MICCAI Workshop, DGM4MICCAI 2024, Held in Conjunctio
 
 ## <div align="center">Documentation</div>
 
-LSD-EBM 🚀 is based on a latent space diffusion energy-based prior to leverage diffusion models, which exhibit high-quality image generation for both in 2D and 3D formats. 
+LSD-EBM 🚀 is based on a latent space diffusion energy-based prior to leverage diffusion models, which exhibit high-quality image generation for both in 2D and 3D formats. The performance of the those models are tested on the 2D public datasets (MNIST, CIFAR10, and CelebA), and our domestic vertebrae datasets (3D). 
 
-We hope that this work will help the researchers and engineers in image generation or out-painting for MRI imaging.
+We hope that this work will help the researchers and engineers in image generation or out-painting for MRI imaging. 
 
 To request an access to the mentioned MRI dataset in the article, please free to contact us.
 
@@ -111,10 +111,11 @@ python compare_latent_lsdebm_ddpm.py
 ```
 python reconstruction_metrics.py
 ```
+## <div align="center">Contribution and Acknowledgement</div>
 
-This code was origincally created by Aurelio dolfinis, containing the implementation of EBM, LEBM, and our LSD-EBM. The performance of the those models are tested on the public datasets (2D), and our domestic vertebrae datasets (3D). 
+We would like to give truly thanks to our co-author, Aurelio dolfinis, who origincally created the code was containing the implementation of LEBM, and our LSD-EBM for MRI imaging. 
 
-### Citing our work
+## <div align="center">Citation</div>
 
 ```
 @inproceedings{wang2024energy,
