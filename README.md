@@ -2,7 +2,7 @@
 
 ### Introduction
 
-This code contains the implementation of EBM, LEBM, and our LSD-EBM. The performance of the those models are tested on the public datasets (2D), and our domestic vertebrae datasets (3D).
+This code was origincally created by Aurelio dolfinis, containing the implementation of EBM, LEBM, and our LSD-EBM. The performance of the those models are tested on the public datasets (2D), and our domestic vertebrae datasets (3D). 
 
 
 ### Installation
@@ -106,7 +106,13 @@ python reconstruction_metrics.py
 ### Citing our work
 
 ```
-{
-
+@inproceedings{wang2024energy,
+  title={Energy-Based Prior Latent Space Diffusion model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI},
+  author={Wang, Yanke and Lee, Yolanne Y. R. and Dolfini, Aurelio and Reischl, Markus and Konukoglu, Ender and Flouris, Kyriakos},
+  booktitle={4th MICCAI Workshop, DGM4MICCAI 2024, Held in Conjunction with MICCAI 2024, Marrakesh, Morocco, October 10, 2024, Proceedings},
+  volume={xx},
+  pages={xxx},
+  year={2024},
+  organization={Springer Nature}
 }
 ```
