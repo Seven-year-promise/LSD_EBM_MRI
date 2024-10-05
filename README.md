@@ -1,9 +1,18 @@
 ## Energy-Based Prior Latent Space Diffusion model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI (LSD-EBM)
 
-### Introduction
+## <div align="center">LSD-EBM 🚀 NEW</div>
+### 
 
-This code was origincally created by Aurelio dolfinis, containing the implementation of EBM, LEBM, and our LSD-EBM. The performance of the those models are tested on the public datasets (2D), and our domestic vertebrae datasets (3D). 
+Our work is accepted by 4th MICCAI Workshop, DGM4MICCAI 2024, Held in Conjunction with MICCAI 2024, Marrakesh, Morocco, October 10, 2024. Feel free to contact and have discussions during the event.
 
+
+## <div align="center">Documentation</div>
+
+LSD-EBM 🚀 is based on a latent space diffusion energy-based prior to leverage diffusion models, which exhibit high-quality image generation for both in 2D and 3D formats. 
+
+We hope that this work will help the researchers and engineers in image generation or out-painting for MRI imaging.
+
+To request an access to the mentioned MRI dataset in the article, please free to contact us.
 
 ### Installation
 
@@ -102,6 +111,8 @@ python compare_latent_lsdebm_ddpm.py
 ```
 python reconstruction_metrics.py
 ```
+
+This code was origincally created by Aurelio dolfinis, containing the implementation of EBM, LEBM, and our LSD-EBM. The performance of the those models are tested on the public datasets (2D), and our domestic vertebrae datasets (3D). 
 
 ### Citing our work
 
