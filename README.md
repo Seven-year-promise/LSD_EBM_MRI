@@ -1,9 +1,13 @@
-## Energy-Based Prior Latent Space Diffusion model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI (LSD-EBM)
+## <div align="center">Energy-Based Prior Latent Space Diffusion model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI</div>
+
+![alt text](./assets/lsd_ebm.epsassets/lsd_ebm.eps)
+
+<img width="100%" src="" alt="YOLO11 performance plots"></a>
 
 ## <div align="center">LSD-EBM 🚀 NEW</div>
 ### 
 
-Our work is accepted by 4th MICCAI Workshop, DGM4MICCAI 2024, Held in Conjunction with MICCAI 2024, Marrakesh, Morocco, October 10, 2024. Feel free to contact and have discussions during the event.
+Our work is accepted by 4th MICCAI Workshop, DGM4MICCAI 2024, which will be Held in Conjunction with MICCAI 2024, Marrakesh, Morocco, October 10, 2024. Feel free to contact and have discussions during the event.
 
 
 ## <div align="center">Documentation</div>
