@@ -1,6 +1,7 @@
 ## <div align="center">Energy-Based Prior Latent Space Diffusion model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI</div>
 
-![alt text](./assets/lsd_ebm.epsassets/lsd_ebm.eps)
+![lsd_ebm](https://github.com/user-attachments/assets/c206dead-e210-431e-ade0-628fc2204ce3)
+
 
 <img width="100%" src="" alt="YOLO11 performance plots"></a>
 
