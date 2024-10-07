@@ -18,12 +18,25 @@ We hope that this work will help the researchers and engineers in image generati
 
 To request an access to the mentioned MRI dataset in the article, please free to contact us.
 
-### Installation
+<details open>
+<summary>Installation</summary>
+ 
+Create the environment with [**Python>=3.7**](https://www.python.org/) using `ve_py37_ebm.yml` for EBM models and `ve_py37_lsd_ebm.yml` for LEBM and LSD-EBM models
 
-Create the environment with python 3.7 and install the bpackages required in `requirements.txt`.
+
+Install the packages required in `requirements.txt`.
 
 
-### Run the codes
+```bash
+pip install -r requirements.txt
+```
+
+
+</details>
+
+<details open>
+
+<summary>Usage</summary>
 
 #### 1. Run the codes on 2D datasets
 
@@ -94,11 +107,12 @@ Run the LSD-EBM on 3D datasets
 ```
 python main_LSDEBM_Vert_01.py
 ```
+</details>
 
 ## <div align="center">Evaluation and Analysis</div>
 
 
-#### 1. Compare the results of different steps of LSD-EBM
+#### 1. Compare the results of different steps of LSD-EBM as the figure shows
 
 ```
 python compare_steps_lsd_ebm.py
@@ -106,13 +120,13 @@ python compare_steps_lsd_ebm.py
 
 ![lq2hq](https://github.com/user-attachments/assets/b14585fb-4575-4590-b8c0-1fe2bb5bbcbc)
 
-#### 2. Compare the latents of LSD-EBM and LEBM
+#### 2. Compare the latents of LSD-EBM and LEBM 
 
 ```
 python compare_latent_lsdebm_ddpm.py
 ```
 
-[latentanalysis.pdf](https://github.com/user-attachments/files/17269942/latentanalysis.pdf)
+![latentanalysis](https://github.com/user-attachments/assets/a29c1daf-6ab3-4890-afa1-96a316dfb52d)
 
 #### 3. Generate the reconstruction metrics used in the paper
 
@@ -123,9 +137,9 @@ python reconstruction_metrics.py
 
 |Method | DICE | VS | SEN | SPEC | NMI | CK |
 | :---: | :---:|:---: |:---: |:---: |:---: |:---: |
-VAE  |  0.7626 ($\pm$ 0.0457) | 0.7887 ($\pm$ 0.0448) | 0.9667 ($\pm$ 0.0138) | 0.9882 ($\pm$ 0.0026) | 0.6252 ($\pm$ 0.0451) | 0.7566 ($\pm$ 0.0461) |
-LEBM  | 0.7619 ($\pm$ 0.0576) | 0.7866 ($\pm$ 0.0539)  |  \textbf{0.9692} ($\pm$ 0.0610) |  0.9883 ($\pm$ 0.0026) | 0.6304 ($\pm$ 0.0663) |  0.7560 ($\pm$ 0.0583) |     
-LSD-EBM  |  \textbf{0.8304} ($\pm$ 0.0317) | \textbf{0.8627} ($\pm$ 0.0313)  | 0.9625 ($\pm$ 0.0135) | \textbf{0.9914} ($\pm$ 0.0020) |  \textbf{0.6973} ($\pm$ 0.0367) |  \textbf{0.8258} ($\pm$ 0.0321) |  
+VAE  |  0.7626   ($\pm$ 0.0457) | 0.7887 ($\pm$ 0.0448) | 0.9667 ($\pm$ 0.0138) | 0.9882 ($\pm$ 0.0026) | 0.6252 ($\pm$ 0.0451) | 0.7566 ($\pm$ 0.0461) |
+LEBM  | 0.7619 ($\pm$ 0.0576) | 0.7866 ($\pm$ 0.0539)  |  0.9692 ($\pm$ 0.0610) |  0.9883 ($\pm$ 0.0026) | 0.6304 ($\pm$ 0.0663) |  0.7560 ($\pm$ 0.0583) |     
+LSD-EBM  |  0.8304 ($\pm$ 0.0317) |  0.8627 ($\pm$ 0.0313)  | 0.9625 ($\pm$ 0.0135) |  0.9914 ($\pm$ 0.0020) |  0.6973 ($\pm$ 0.0367) |  0.8258 ($\pm$ 0.0321) |  
 
 
 ## <div align="center">Contribution and Acknowledgement</div>
