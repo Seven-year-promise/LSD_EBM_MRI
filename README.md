@@ -144,7 +144,7 @@ LSD-EBM  |  0.8304 ($\pm$ 0.0317) |  0.8627 ($\pm$ 0.0313)  | 0.9625 ($\pm$ 0.01
 
 ## <div align="center">Contribution and Acknowledgement</div>
 
-We would like to give truly thanks to our co-author, Aurelio dolfinis, who origincally created the code was containing the implementation of LEBM, and our LSD-EBM for MRI imaging. 
+We would like to give truly thanks to our co-author, Aurelio dolfinis, who origincally created the code containing the implementation of LEBM, and our LSD-EBM for MRI imaging. 
 
 ## <div align="center">Citation</div>
 
