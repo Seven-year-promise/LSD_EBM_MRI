@@ -93,19 +93,19 @@ cd 3D/LSD-EBM/LSD-EBM_code
 Run the VAE on 3D datasets
 
 ```
-main_VAE_Vert_01.py
+python train_vae_vert.py
 ```
 
 Run the LEBM on 3D datasets
 
 ```
-python main_LEBM_Vert_04.py
+python train_lebm_vert.py
 ```
 
 Run the LSD-EBM on 3D datasets
 
 ```
-python main_LSDEBM_Vert_01.py
+python train_lsd_ebm_vert.py
 ```
 </details>
 
