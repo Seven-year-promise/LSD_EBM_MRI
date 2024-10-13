@@ -149,13 +149,24 @@ We would like to give truly thanks to our co-author, Aurelio dolfinis, who origi
 ## <div align="center">Citation</div>
 
 ```
-@inproceedings{wang2024energy,
-  title={Energy-Based Prior Latent Space Diffusion model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI},
-  author={Wang, Yanke and Lee, Yolanne Y. R. and Dolfini, Aurelio and Reischl, Markus and Konukoglu, Ender and Flouris, Kyriakos},
-  booktitle={4th MICCAI Workshop, DGM4MICCAI 2024, Held in Conjunction with MICCAI 2024, Marrakesh, Morocco, October 10, 2024, Proceedings},
-  volume={xx},
-  pages={xxx},
-  year={2024},
-  organization={Springer Nature}
+@InProceedings{10.1007/978-3-031-72744-3_3,
+author="Wang, Yanke
+and Lee, Yolanne Y. R.
+and Dolfini, Aurelio
+and Reischl, Markus
+and Konukoglu, Ender
+and Flouris, Kyriakos",
+editor="Mukhopadhyay, Anirban
+and Oksuz, Ilkay
+and Engelhardt, Sandy
+and Mehrof, Dorit
+and Yuan, Yixuan",
+title="Energy-Based Prior Latent Space Diffusion Model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI",
+booktitle="Deep Generative Models",
+year="2025",
+publisher="Springer Nature Switzerland",
+address="Cham",
+pages="22--32",
+isbn="978-3-031-72744-3"
 }
 ```
