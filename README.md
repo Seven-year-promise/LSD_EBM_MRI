@@ -1,10 +1,16 @@
-## <div align="center">Energy-Based Prior Latent Space Diffusion model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI</div>
+## <div align="center">Energy-Based Prior Latent Space Diffusion model for Reconstruction of Lumbar Vertebrae from Thick Slice MRI [DGM4MICCAI 2024]</div>
+
+[**Yanke Wang**](https://scholar.google.com/citations?user=BdZ513MAAAAJ&hl=en) · [**Yolanne Y. R. Lee**]() · [**Aurelio Dolfini**]() · [**Markus Reischl**](https://www.iai.kit.edu/english/921_1187.php) · [**Ender Konukoglu**]()· [**Kyriakos Flouris**]()
+
+<a href="[https://arxiv.org/abs/2404.00815](https://arxiv.org/abs/2412.00511)"><img src='https://img.shields.io/badge/arXiv-2404.00815-red?logo=arXiv' alt='arXiv'></a>
+
 
 ![lsd_ebm](https://github.com/user-attachments/assets/c206dead-e210-431e-ade0-628fc2204ce3)
 
 The overall architecture of the \ac{lsdebm} is visualized in the figure. Given an input 3D image $`\mathbf{x}`$, the inference network generates the latent variable $`\mathbf{z}_0 \sim q_\varphi(\mathbf{z}_0|\mathbf{x})= \mathcal{N}(\mathbf{z};\mu_0(x),\sigma_0(x))`$ with learnable mean $`\mu_0`$ and variance $`\sigma_0`$. A latent diffusion and denoising processes are constructed with the energy-based prior to optimize $`\mathbf{z}_0`$. The diffusion in latent space acts as checkpoints guiding the learning while also reducing its computational overhead which would be prohibitive in full image space, therefore resulting in more stable and accurate generation. The optimized $`\mathbf{z}_0`$ is then used by the generation network to reconstruct the 3D image $`\mathbf{x}^\prime \sim p_\beta(\mathbf{x}|\mathbf{z}_0)`$.
 
 ## <div align="center">LSD-EBM 🚀 NEW</div>
+
 ### 
 
 Our work is accepted by 4th MICCAI Workshop, DGM4MICCAI 2024, which will be Held in Conjunction with MICCAI 2024, Marrakesh, Morocco, October 10, 2024. Feel free to contact and have discussions during the event.
