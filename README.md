@@ -2,7 +2,7 @@
 
 ![lsd_ebm](https://github.com/user-attachments/assets/c206dead-e210-431e-ade0-628fc2204ce3)
 
-The overall architecture of the LSD-EBM is visualized in the figure. Given an input 3D image $\mathbf{x}$, the inference network generates the latent variable $\mathbf{z}_0 \sim q_\varphi(\mathbf{z}_0|\mathbf{x})= \mathcal{N}(\mathbf{z};\mu_0(x),\sigma_0(x))$ with learnable mean $\mu_0$ and variance $\sigma_0$. A latent diffusion and denoising processes are constructed with the energy-based prior to optimize $\mathbf{z}_0$. The diffusion in latent space acts as checkpoints guiding the learning while also reducing its computational overhead which would be prohibitive in full image space, therefore resulting in more stable and accurate generation. The optimized $\mathbf{z}_0$ is then used by the generation network to reconstruct the 3D image $\mathbf{x}^\prime \sim p_\beta(\mathbf{x}|\mathbf{z}_0)$.
+The overall architecture of the LSD-EBM is visualized in the figure. Given an input 3D image $x$, the inference network generates the latent variable $z_0 \sim q_\varphi(z_0|x)= \N(z;\mu_0(x),\sigma_0(x))$ with learnable mean $\mu_0$ and variance $\sigma_0$. A latent diffusion and denoising processes are constructed with the energy-based prior to optimize $\mathbf{z}_0$. The diffusion in latent space acts as checkpoints guiding the learning while also reducing its computational overhead which would be prohibitive in full image space, therefore resulting in more stable and accurate generation. The optimized $\mathbf{z}_0$ is then used by the generation network to reconstruct the 3D image $\mathbf{x}^\prime \sim p_\beta(\mathbf{x}|\mathbf{z}_0)$.
 
 ## <div align="center">LSD-EBM 🚀 NEW</div>
 ### 
