@@ -2,7 +2,7 @@
 
 [**Yanke Wang**](https://scholar.google.com/citations?user=BdZ513MAAAAJ&hl=en) · [**Yolanne Y. R. Lee**]() · [**Aurelio Dolfini**]() · [**Markus Reischl**](https://www.iai.kit.edu/english/921_1187.php) · [**Ender Konukoglu**]()· [**Kyriakos Flouris**]()
 
-<a href="[https://arxiv.org/abs/2404.00815](https://arxiv.org/abs/2412.00511)"><img src='https://img.shields.io/badge/arXiv-2404.00815-red?logo=arXiv' alt='arXiv'></a>
+<a href="https://arxiv.org/abs/2412.00511"><img src='https://img.shields.io/badge/arXiv-2404.00815-red?logo=arXiv' alt='arXiv'></a>
 
 
 ![lsd_ebm](https://github.com/user-attachments/assets/c206dead-e210-431e-ade0-628fc2204ce3)
